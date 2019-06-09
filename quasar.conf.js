@@ -1,13 +1,22 @@
 // Configuration for your app
+const path = require('path');
+
+function resolve(dir) {
+    return path.join(__dirname, dir);
+};
 
 module.exports = function (ctx) {
   return {
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
     boot: [
+      'auth',
       'i18n',
-      'axios'
+      'axios',
+      'vuelidate',
     ],
+
+    preFetch: true,
 
     css: [
       'app.styl'
@@ -26,6 +35,7 @@ module.exports = function (ctx) {
       // all: true, // --- includes everything; for dev only!
 
       components: [
+        //Base
         'QLayout',
         'QHeader',
         'QDrawer',
@@ -38,7 +48,13 @@ module.exports = function (ctx) {
         'QList',
         'QItem',
         'QItemSection',
-        'QItemLabel'
+        'QItemLabel',
+        //Card
+        'QCard',
+        'QCardSection',
+        'QCardActions',
+        //Form
+        'QInput'
       ],
 
       directives: [
@@ -47,29 +63,38 @@ module.exports = function (ctx) {
 
       // Quasar plugins
       plugins: [
-        'Notify'
-      ]
+        'Notify',
+        'Dialog',
+        'LocalStorage',
+        'SessionStorage'
+      ],
 
       // iconSet: 'ionicons-v4'
-      // lang: 'de' // Quasar language
+      lang: 'zh-hans' // Quasar language
     },
 
     supportIE: true,
 
     build: {
       scopeHoisting: true,
-      // vueRouterMode: 'history',
+      vueRouterMode: 'history',
       // vueCompiler: true,
       // gzip: true,
       // analyze: true,
       // extractCSS: false,
+      //暂时关闭Eslint
       extendWebpack (cfg) {
-        cfg.module.rules.push({
-          enforce: 'pre',
-          test: /\.(js|vue)$/,
-          loader: 'eslint-loader',
-          exclude: /node_modules/
-        })
+        // cfg.module.rules.push({
+        //   enforce: 'pre',
+        //   test: /\.(js|vue)$/,
+        //   loader: 'eslint-loader',
+        //   exclude: /node_modules/,
+        // });
+        cfg.resolve.alias = {
+            ...cfg.resolve.alias, // This adds the existing alias
+
+            '@': resolve('src')
+        }
       }
     },
 
