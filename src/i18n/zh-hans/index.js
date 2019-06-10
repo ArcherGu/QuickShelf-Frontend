@@ -8,6 +8,7 @@ export default {
         password: '密码',
         login: "登陆",
         logining: "登陆中...",
+        remember_me: "记住我",
     },
 
     //Errors

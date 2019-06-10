@@ -51,6 +51,14 @@
                                 />
                             </template>
                         </q-input>
+                        <div class="row">
+                            <q-checkbox keep-color 
+                                        v-model="form.rememberMe" 
+                                        :label="$t('auth.remember_me')" 
+                                        color="cyan" 
+                                        class="col-4 offset-4"
+                            />
+                        </div>
 
                     </q-card-section>
                     <q-card-actions class="q-pl-md q-pr-md q-pb-md">
@@ -76,8 +84,9 @@ export default {
     data() {
         return {
             form: {
-                username: "admin",
-                password: "123"
+                username: "",
+                password: "",
+                rememberMe: false,
             },
             loading: false,
         }

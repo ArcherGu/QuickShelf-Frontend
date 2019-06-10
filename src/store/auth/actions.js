@@ -15,9 +15,8 @@ export function register (state, data) {
 
 export function login (state, data) {
     return axiosInstance.post(LOGIN_ROUTE, data).then((response) => {
-        console.log(response.data);
-        const token = response.data.data.token;
-        state.commit('setUser', response.data.data.user);
+        const token = response.data.result.token;
+        state.commit('setUser', response.data.result.user);
         axiosInstance.defaults.headers.common['Authorization'] = 'Bearer ' + token;
         if (data.rememberMe) {
             LocalStorage.set(TOKEN_KEY, token);
@@ -37,7 +36,7 @@ export function fetch (state) {
     if (token) {
         axiosInstance.defaults.headers.common['Authorization'] = 'Bearer ' + token;
         return axiosInstance.get(USER_ROUTE).then((response) => {
-            state.commit('setUser', response.data.data);
+            state.commit('setUser', response.data.result.user);
         })
     }
 }

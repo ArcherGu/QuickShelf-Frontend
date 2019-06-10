@@ -18,10 +18,10 @@ export default {
             setLocale(response.data.LOCALE);
 
             store.dispatch('auth/fetch').then(() => {
-                redirect(true);
+                redirect("/");
             }).catch(() => {
                 store.dispatch('auth/logout').then(() => {
-                    redirect(true);
+                    redirect("/login");
                 })
             })
         }).catch(() => {
