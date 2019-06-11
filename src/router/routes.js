@@ -14,6 +14,12 @@ const routes = [
                 name: 'dashboard',
                 component: () => import('pages/Index.vue')
             },
+            {
+                path: '/account',
+                meta: { auth: true },
+                name: 'account',
+                component: () => import('pages/Account')
+            },
         ]
     },
 ]

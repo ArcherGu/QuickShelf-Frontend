@@ -34,6 +34,7 @@ export function fetch (state) {
         token = SessionStorage.getItem(TOKEN_KEY);
     }
     if (token) {
+        console.log("token")
         axiosInstance.defaults.headers.common['Authorization'] = 'Bearer ' + token;
         return axiosInstance.get(USER_ROUTE).then((response) => {
             state.commit('setUser', response.data.result.user);

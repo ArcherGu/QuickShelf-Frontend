@@ -19,4 +19,9 @@ export default {
         fields: 'Please correct the input fields'
     },
 
+    //Messages
+    messages: {
+        update_available: '有新的版本更新！'
+    }
+
 }

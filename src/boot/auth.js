@@ -7,24 +7,20 @@ function isArrayOrString(variable) {
 
 export default ({ router, store, Vue }) => {
     router.beforeEach((to, from, next) => {
-        if(to.fullPath == "/login"){
-            if(store.getters['auth/loggedIn']){
-                next({
-                    path:from.fullPath
-                });
-            }else {
-                next();
-            }
-        }
         const record = to.matched.find(record => record.meta.auth);
         if (record) {
             if (!store.getters['auth/loggedIn']) {
-                router.push('/login');
+                router.push({
+                    path: '/login',
+                    query: {
+                        redirect: to.fullPath
+                    }
+                });
             } else if (isArrayOrString(record.meta.auth) && !store.getters['auth/check'](record.meta.auth)) {
                 router.push('/account');
             }
         }
-        next()
+        next();
     })
 
     var helper = {}

@@ -69,6 +69,12 @@
                             size="lg"
                             :loading="loading"
                         />
+                        <q-btn
+                            color="secondary full-width"
+                            @click="getUser"
+                            label="获取用户"
+                            size="lg"
+                        />
                     </q-card-actions>
                 </q-card>
             </div>
@@ -92,14 +98,18 @@ export default {
         }
     },
     mounted() {
+
     },
     methods: {
+        getUser(){
+            console.log(this.$auth.user());
+        },
         login() {
             this.$v.form.$touch();
             if (!this.$v.form.$error) {
                 this.loading = true;
                 this.$auth.login(this.form).then(() => {
-                    this.$router.push('/');
+                    this.$router.push(this.$router.currentRoute.query.redirect || '/');
                 }).catch((error) => {
                     if (error.response) {
                         this.$q.dialog({

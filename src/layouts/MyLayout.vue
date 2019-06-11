@@ -72,6 +72,16 @@
             <q-item-label caption>@quasarframework</q-item-label>
           </q-item-section>
         </q-item>
+
+        <q-item clickable @click="$router.push('/account')">
+          <q-item-section avatar>
+            <q-icon name="account_circle" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Account</q-item-label>
+            <q-item-label caption>User Account</q-item-label>
+          </q-item-section>
+        </q-item>
       </q-list>
     </q-drawer>
 

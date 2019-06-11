@@ -11,17 +11,22 @@ import { i18nInstance, setLocale } from 'boot/i18n';
 
 export default {
     name: 'App',
-    preFetch({ store, redirect }) {
+    preFetch({ store, currentRoute, previousRoute, redirect }) {
         redirect(false);
         axiosInstance.get('/statics/config.json?' + new Date().getTime()).then((response) => {
             axiosInstance.defaults.baseURL = response.data.API_URL;
             setLocale(response.data.LOCALE);
 
             store.dispatch('auth/fetch').then(() => {
-                redirect("/");
+                if (store.getters['auth/loggedIn']) {
+                    redirect(currentRoute.query.redirect);
+                }
+                else {
+                    redirect(true);
+                }
             }).catch(() => {
                 store.dispatch('auth/logout').then(() => {
-                    redirect("/login");
+                    redirect(true);
                 })
             })
         }).catch(() => {
