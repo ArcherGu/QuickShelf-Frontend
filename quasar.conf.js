@@ -49,13 +49,18 @@ module.exports = function (ctx) {
                 'QItem',
                 'QItemSection',
                 'QItemLabel',
+                'QSeparator',
                 //Card
                 'QCard',
                 'QCardSection',
                 'QCardActions',
                 //Form
                 'QInput',
-                'QCheckbox'
+                'QCheckbox',
+                //Ex
+                'QAvatar',
+                'QScrollArea',
+                'QImg'
             ],
 
             directives: [

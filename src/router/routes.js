@@ -20,6 +20,12 @@ const routes = [
                 name: 'account',
                 component: () => import('pages/Account')
             },
+            {
+                path: '/shop',
+                meta: { auth: true },
+                name: 'account',
+                component: () => import('pages/Shop')
+            },
         ]
     },
 ]
