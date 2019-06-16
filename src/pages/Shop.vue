@@ -15,7 +15,7 @@ export default {
   name: 'Account',
   methods: {
       getUser(){
-          console.log(this.$auth.user());
+          console.log(this.$router.options.routes);
       }
   }
 }

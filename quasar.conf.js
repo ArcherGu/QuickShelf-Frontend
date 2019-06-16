@@ -57,14 +57,23 @@ module.exports = function (ctx) {
                 //Form
                 'QInput',
                 'QCheckbox',
+                'QToggle',
+                'QSelect',
+                //Table
+                'QTable',
+                'QTh',
+                'QTr',
+                'QTd',
                 //Ex
                 'QAvatar',
                 'QScrollArea',
-                'QImg'
+                'QImg',
+                'QDialog'
             ],
 
             directives: [
-                'Ripple'
+                'Ripple',
+                'ClosePopup'
             ],
 
             // Quasar plugins

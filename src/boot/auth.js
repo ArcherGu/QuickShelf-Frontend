@@ -1,9 +1,4 @@
-function isArrayOrString(variable) {
-    if (typeof variable === typeof [] || typeof variable === typeof '') {
-        return true
-    }
-    return false
-}
+import { isArrayOrString } from "@/utils/tools.js";
 
 export default ({ router, store, Vue }) => {
     router.beforeEach((to, from, next) => {
@@ -16,9 +11,10 @@ export default ({ router, store, Vue }) => {
                         redirect: to.fullPath
                     }
                 });
-            } else if (isArrayOrString(record.meta.auth) && !store.getters['auth/check'](record.meta.auth)) {
-                router.push('/account');
-            }
+            } 
+            // else if (isArrayOrString(record.meta.auth) && !store.getters['auth/check'](record.meta.auth)) {
+            //     router.push('/account');
+            // }
         }
         next();
     })

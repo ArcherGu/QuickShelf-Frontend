@@ -2,6 +2,21 @@ export default {
     failed: 'Action failed',
     success: 'Action was successful',
 
+    //Operate
+    operate: {
+        self: '操作',
+        add: '添加',
+        edit: '编辑',
+        delete: '删除',
+        save: '保存',
+        confirm: '确认',
+        cancel: '取消',
+    },
+
+    common: {
+        dataTable: '数据列表'
+    },
+
     //Auth
     auth: {
         username: '用户名',
@@ -9,6 +24,33 @@ export default {
         login: "登陆",
         logining: "登陆中...",
         remember_me: "记住我",
+    },
+
+    //Admin
+    admin: {
+        router: {
+            self: '路由',
+            path: '路径',
+            name: '名称',
+            component: '组件',
+            icon: '图标',
+            level: '等级',
+            belongTo: '从属',
+            role: '默认角色',
+            isLock: '是否锁定',
+            isMenu: '菜单路由',
+            isUse: '使用状态',
+
+        }
+    },
+
+    //Role
+    role: {
+        none: '无角色',
+        admin: '管理员',
+        boss: '老板',
+        manager: '店长',
+        staff: '店员'
     },
 
     //Errors

@@ -1,5 +1,5 @@
 <template>
-    <q-layout view="lHh Lpr lff">
+    <q-layout view="lHh Lpr lff" class="bg-brown-1">
         <q-header
             :reveal="true"
             bordered
@@ -11,9 +11,10 @@
                     @click="showMenu = !showMenu"
                     round
                     dense
+                    color="grey-7"
                     icon="menu"
                 />
-                <q-toolbar-title>Header</q-toolbar-title>
+                <q-toolbar-title class="text-grey-7 text-weight-bold">Header</q-toolbar-title>
             </q-toolbar>
         </q-header>
 
@@ -22,6 +23,7 @@
             :width="250"
             :breakpoint="400"
             show-if-above
+            overlay
         >
             <q-scroll-area style="height: calc(100% - 70px); margin-top: 70px; border-right: 1px solid #ddd">
                 <q-list padding>
@@ -73,34 +75,20 @@
                     <q-item
                         clickable
                         v-ripple
+                        exact
+                        to="/admin/router"
                     >
                         <q-item-section avatar>
                             <q-icon name="drafts" />
                         </q-item-section>
 
                         <q-item-section>
-                            No Now
+                            Router
                         </q-item-section>
                     </q-item>
                 </q-list>
             </q-scroll-area>
 
-            <!-- <q-img
-                    class="absolute-top"
-                    src="https://cdn.quasar.dev/img/material.png"
-                    style="height: 150px"
-                >
-                    <div class="absolute-bottom bg-transparent">
-                        <q-avatar
-                            size="56px"
-                            class="q-mb-sm"
-                        >
-                            <img src="https://cdn.quasar.dev/img/boy-avatar.png">
-                        </q-avatar>
-                        <div class="text-weight-bold">Razvan Stoenescu</div>
-                        <div>@rstoenescu</div>
-                    </div>
-                </q-img> -->
             <div
                 class="absolute-top"
                 style="height: 70px; border-right: 1px solid #ddd"
@@ -110,18 +98,19 @@
                         size="45px"
                         class="q-mb-sm"
                     >
-                        <img src="https://cdn.quasar.dev/img/boy-avatar.png">
-                        <div class="text-weight-bold">Razvan Stoenescu</div>
-                        <div>@rstoenescu</div>
+                        <img src="~assets/quickshelf.png" />
                     </q-avatar>
-
+                    <span class="text-weight-bold">QuickShelf</span>
+                    <span>@{{$auth.user().username}}</span>
                 </div>
                 <q-separator inset />
             </div>
         </q-drawer>
 
-        <q-page-container class="bg-brown-1">
-            <router-view />
+        <q-page-container>
+            <div class="app-container">
+                <router-view />
+            </div>
         </q-page-container>
     </q-layout>
 
@@ -138,14 +127,7 @@ export default {
 </script>
 
 <style scoped>
-.moving-arrow {
-    border-right: 17px solid #f4f3ef;
-    border-top: 17px solid transparent;
-    border-bottom: 17px solid transparent;
-    display: inline-block;
-    position: absolute;
-    left: 243px;
-    top: 95px;
-    transition: all .5s cubic-bezier(.29,1.42,.79,1);
-}
+    .app-container {
+        padding: 20px;
+    }
 </style>
