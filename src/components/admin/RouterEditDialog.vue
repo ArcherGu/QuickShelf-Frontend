@@ -1,116 +1,163 @@
 <template>
-    <q-dialog 
-        v-model="myShow" 
-        ref="addDialog" 
+
+    <q-dialog
+        v-model="myShow"
+        ref="addDialog"
         @before-show="changeDetails"
-        @hide="cleanData"
     >
+
         <q-card style="width: 500px; max-width: 80vw;">
-            <q-card-section>
-                <div class="text-h6" v-text="details.title"></div>
-            </q-card-section>
+            <q-form @submit="save">
+                <q-card-section>
+                    <div
+                        class="text-h6"
+                        v-text="details.title"
+                    ></div>
+                </q-card-section>
 
-            <q-card-section>
-                <q-input 
-                    v-model="editData.path" 
-                    :label="$t('admin.router.path')" 
-                />
-                <q-input 
-                    v-model="editData.name" 
-                    :label="$t('admin.router.name')" 
-                />
-                <q-input 
-                    v-model="editData.component" 
-                    :label="$t('admin.router.component')" 
-                />
-                <q-input 
-                    v-model="editData.icon" 
-                    :label="$t('admin.router.icon')" 
-                />
-                <q-input 
-                    v-model="editData.level" 
-                    :label="$t('admin.router.level')" 
-                />
-                <q-select
-                    v-model="editData.belongTo"
-                    :label="$t('admin.router.belongTo')"
-                    :options="selectRouters"
-                    emit-value
-                    map-options
-                />
-                <q-select 
-                    v-model="editData.role" 
-                    :options="roles" 
-                    :option-value="(item) => item"
-                    :option-label="(item) => $t('role.' + item)"
-                    emit-value
-                    map-options
-                    :label="$t('admin.router.role')" 
-                />
+                <q-card-section>
+                    <q-input
+                        v-model="editData.path"
+                        :label="$t('admin.router.path')"
+                        :rules="[ val => val && val.length > 0 || $t('errors.input_required', { item: $t('admin.router.path') })]"
+                    />
+                    <q-input
+                        v-model="editData.name"
+                        :label="$t('admin.router.name')"
+                        :rules="[ val => val && val.length > 0 || $t('errors.input_required', { item: $t('admin.router.name') })]"
+                    />
+                    <q-input
+                        v-model="editData.component"
+                        :label="$t('admin.router.component')"
+                        :rules="[ val => val && val.length > 0 || $t('errors.input_required', { item: $t('admin.router.component') })]"
+                    />
+                    <q-input
+                        v-model="editData.icon"
+                        :label="$t('admin.router.icon')"
+                    />
 
-                <q-toggle
-                    v-model="editData.isLock"
-                    checked-icon="lock"
-                    unchecked-icon="lock_open"
-                    color="green"
-                    left-label
-                    :label="$t('admin.router.isLock')"
-                    :true-value="1"
-                    :false-value="0"
-                />
+                    <q-select
+                        class="q-mt-md"
+                        emit-value
+                        map-options
+                        multiple
+                        v-model="editData.roleNames"
+                        :options="roles"
+                        :option-value="(item) => item"
+                        :option-label="(item) => $t('role.' + item)"
+                        :option-disable="(item) => disableRoles.includes(item)"
+                        :label="$t('admin.router.roleNames')"
+                        :rules="[ val => val && val.length > 0 || $t('errors.select_required', { item: $t('admin.router.roleNames') })]"
+                    />
+                    <q-select
+                        class="q-mt-md"
+                        v-model="fatherRouter"
+                        :label="$t('admin.router.belongTo')"
+                        :options="selectRouters"
+                        map-options
+                    />
+                    <div class="q-mt-md">
+                        <span v-text="$t('admin.router.level')"></span>
+                        <div class="q-px-lg">
+                            <q-slider
+                                class="q-ml-lg"
+                                v-model="editData.level"
+                                :min="minLevel"
+                                :max="5"
+                                :step="1"
+                                label
+                                label-always
+                                color="light-green"
+                            />
+                        </div>
+                    </div>
+                    <q-toggle
+                        v-model="editData.isLock"
+                        checked-icon="lock"
+                        unchecked-icon="lock_open"
+                        color="green"
+                        left-label
+                        :label="$t('admin.router.isLock')"
+                        :true-value="1"
+                        :false-value="0"
+                    />
 
-                <q-toggle
-                    v-model="editData.isMenu"
-                    checked-icon="event_available"
-                    unchecked-icon="event_busy"
-                    color="primary"
-                    left-label
-                    :label="$t('admin.router.isMenu')"
-                    :true-value="1"
-                    :false-value="0"
-                />
+                    <q-toggle
+                        v-model="editData.isMenu"
+                        checked-icon="event_available"
+                        unchecked-icon="event_busy"
+                        color="primary"
+                        left-label
+                        :label="$t('admin.router.isMenu')"
+                        :true-value="1"
+                        :false-value="0"
+                    />
 
-                <q-toggle
-                    v-model="editData.isUse"
-                    checked-icon="check"
-                    unchecked-icon="clear"
-                    color="info"
-                    left-label
-                    :label="$t('admin.router.isUse')"
-                    :true-value="1"
-                    :false-value="0"
-                />
-            </q-card-section>
+                    <q-toggle
+                        v-model="editData.isUse"
+                        checked-icon="check"
+                        unchecked-icon="clear"
+                        color="info"
+                        left-label
+                        :label="$t('admin.router.isUse')"
+                        :true-value="1"
+                        :false-value="0"
+                    />
+                </q-card-section>
 
-            <q-card-actions align="right">
-                <q-btn
-                    :label="details.saveBtn.text"
-                    :color="details.saveBtn.color"
-                    @click="test"
-                />
-                <q-btn
-                    :label="$t('operate.cancel')"
-                    color="grey-7"
-                    v-close-popup
-                />
-            </q-card-actions>
+                <q-card-actions align="right">
+                    <q-btn
+                        type="submit"
+                        :label="details.saveBtn.text"
+                        :color="details.saveBtn.color"
+                    />
+                    <q-btn
+                        type="reset"
+                        :label="$t('operate.cancel')"
+                        color="grey-7"
+                        v-close-popup
+                    />
+                </q-card-actions>
+            </q-form>
         </q-card>
+
     </q-dialog>
+
 </template>
 
 <script>
 import { addOrEditRouter } from "@/api/admin/routerManage.js";
 import { getAllRoles } from "@/api/role.js";
-import { required, numeric } from "vuelidate/lib/validators";
+
+const defaultEditData = {
+    id: 0,
+    path: '',
+    name: '',
+    component: '',
+    icon: '',
+    level: 0,
+    belongTo: 0,
+    roleNames: ['admin'],
+    isLock: 0,
+    isMenu: 0,
+    isUse: 1,
+};
+
+const defaultSelectRouterOption = {
+    label: 'none',
+    value: 0,
+    minLevel: 0,
+    roleNames: ['admin']
+};
 
 export default {
     name: 'router-edit-dialog',
     props: {
-        show:{
+        show: {
             type: Boolean,
             default: false
         },
-        allRouters:{
+        allRouters: {
             type: Array
         },
         sourceData: {
@@ -118,11 +165,15 @@ export default {
             default: false
         }
     },
-    data(){
+    data() {
         return {
             myShow: this.show,
-            roles:['none'],
-            details:{
+            roles: [],
+            disableRoles: [],
+            editData: defaultEditData,
+            fatherRouter: defaultSelectRouterOption,
+            minLevel: 0,
+            details: {
                 title: this.$t('operate.add') + this.$t('admin.router.self'),
                 saveBtn: {
                     color: 'positive',
@@ -135,23 +186,18 @@ export default {
         prop: 'show',
         event: 'show-dialog'
     },
-    mounted(){
+    mounted() {
         this.getRolesData();
     },
     methods: {
-        save(){
+        save() {
             addOrEditRouter(this.editData).then((response) => {
                 this.$refs.addDialog.hide();
+                this.editData = defaultEditData;
                 this.$emit('refresh-table');
             }).catch((error) => {
                 console.log(error);
             })
-        },
-
-        test() {
-            console.log(this.editData);
-            this.$v.editData.$touch();
-            console.log(this.$v.editData.$error)
         },
 
         getRolesData() {
@@ -174,59 +220,56 @@ export default {
                 this.details.saveBtn.color = 'positive'
             }
         },
-
-        cleanData() {
-            this.$emit('clean-data');
-        }
     },
     computed: {
-        editData() {
-            if (this.sourceData) {
-                return {
-                    id: parseInt(this.sourceData.id),
-                    path: this.sourceData.path,
-                    name: this.sourceData.name,
-                    component: this.sourceData.component,
-                    icon: this.sourceData.icon,
-                    level: parseInt(this.sourceData.level),
-                    belongTo: parseInt(this.sourceData.belong_to),
-                    role: this.sourceData.roleNames.length > 0 ? this.sourceData.roleNames[0] : 'none',
-                    isLock: parseInt(this.sourceData.is_lock),
-                    isMenu: parseInt(this.sourceData.is_menu),
-                    isUse: parseInt(this.sourceData.is_use),
+        selectRouters() {
+            let selectData = [defaultSelectRouterOption];
+            this.allRouters.forEach((it) => {
+                if (it.level < 5) {
+                    selectData.push({
+                        label: `${it.name} (${it.path})`,
+                        value: it.id,
+                        minLevel: it.level,
+                        roleNames: it.roleNames.length > 0 ? it.roleNames : ['admin']
+                    });
+                }
+            });
+            return selectData;
+        }
+    },
+    watch: {
+        sourceData(newVal) {
+            if (newVal) {
+                this.editData = {
+                    id: parseInt(newVal.id),
+                    path: newVal.path,
+                    name: newVal.name,
+                    component: newVal.component,
+                    icon: newVal.icon,
+                    level: parseInt(newVal.level),
+                    belongTo: parseInt(newVal.belong_to),
+                    roleNames: newVal.roleNames.length > 0 ? newVal.roleNames : ['admin'],
+                    isLock: parseInt(newVal.is_lock),
+                    isMenu: parseInt(newVal.is_menu),
+                    isUse: parseInt(newVal.is_use),
                 };
             }
             else {
-                return {
-                        id: 0,
-                        path: '',
-                        name: '',
-                        component: '',
-                        icon: '',
-                        level: '',
-                        belongTo: 0,
-                        role: 'none',
-                        isLock: 0,
-                        isMenu: 0,
-                        isUse: 1,
-                };
+                this.editData = defaultEditData;
             }
         },
-        selectRouters() {
-            let selectData = [{
-                label: 'none',
-                value: 0
-            }];
-            this.allRouters.forEach((it) =>{
-                selectData.push({
-                    label: `${it.name} (${it.path})`,
-                    value: it.id
-                });
-            });
-            return selectData;
+        fatherRouter(newVal) {
+            this.editData.belongTo = newVal.value;
+            if (newVal.label == 'none') {
+                this.minLevel = 0;
+                this.disableRoles = [];
+            }
+            else {
+                this.minLevel = newVal.minLevel + 1;
+                this.editData.roleNames = newVal.roleNames;
+                this.disableRoles = this.roles.filter((it) => !newVal.roleNames.includes(it));
+            }
         },
-    },
-    watch:{
         show(newVal) {
             this.myShow = newVal;
         },
@@ -234,20 +277,5 @@ export default {
             this.$emit('show-dialog', newVal)
         }
     },
-    validations: {
-        editData: {
-            id: { required, numeric },
-            path: { required },
-            name: { required },
-            component: { required },
-            icon: { required },
-            level: { required, numeric },
-            belongTo: { required, numeric },
-            role: { required },
-            isLock: { required, numeric },
-            isMenu: { required, numeric },
-            isUse: { required, numeric },
-        }
-    }
 }
 </script>

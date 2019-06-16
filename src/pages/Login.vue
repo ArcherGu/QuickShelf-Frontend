@@ -2,75 +2,79 @@
     <div class="content">
         <div class="container row">
             <div class="col-md-6 col-xs-12 col-lg-4 q-ml-auto q-mr-auto">
-                <q-card>
-                    <q-card-section>
-                        <img
-                            src="../assets/login-card.png"
-                            style="width: 100%"
-                        >
-                    </q-card-section>
-                    <q-card-section>
+                <q-form @submit="login">
+                    <q-card>
+                        <q-card-section>
+                            <img
+                                src="../assets/login-card.png"
+                                style="width: 100%"
+                            >
+                        </q-card-section>
+                        <q-card-section>
+                            <q-input
+                                color="green q-mb-sm"
+                                outlined
+                                v-model.trim="form.username"
+                                :label="$t('auth.username')"
+                                lazy-rules
+                                :rules="[ val => val && val.length > 0 || $t('errors.input_required', { item: $t('auth.username') })]"
+                                autofocus
+                            >
+                                <template v-slot:prepend>
+                                    <q-icon name="account_circle" />
+                                </template>
+                                <template v-slot:append>
+                                    <q-icon
+                                        name="close"
+                                        @click="form.username = ''"
+                                        class="cursor-pointer"
+                                    />
+                                </template>
+                            </q-input>
 
-                        <q-input
-                            color="green q-mb-sm"
-                            outlined
-                            v-model.trim="form.username"
-                            :label="$t('auth.username')"
-                            :error="$v.form.username.$error"
-                            autofocus
-                        >
-                            <template v-slot:prepend>
-                                <q-icon name="account_circle" />
-                            </template>
-                            <template v-slot:append>
-                                <q-icon
-                                    name="close"
-                                    @click="form.username = ''"
-                                    class="cursor-pointer"
+                            <q-input
+                                class="q-mt-xs"
+                                color="green"
+                                outlined
+                                type="password"
+                                v-model="form.password"
+                                :label="$t('auth.password')"
+                                @keyup.enter="login"
+                                lazy-rules
+                                :rules="[ val => val && val.length > 0 || $t('errors.input_required', { item: $t('auth.password') })]"
+                            >
+                                <template v-slot:prepend>
+                                    <q-icon name="lock" />
+                                </template>
+                                <template v-slot:append>
+                                    <q-icon
+                                        name="close"
+                                        @click="form.password = ''"
+                                        class="cursor-pointer"
+                                    />
+                                </template>
+                            </q-input>
+                            <div class="row">
+                                <q-checkbox
+                                    keep-color
+                                    v-model="form.rememberMe"
+                                    :label="$t('auth.remember_me')"
+                                    color="cyan"
+                                    class="col-4 offset-4"
                                 />
-                            </template>
-                        </q-input>
-
-                        <q-input
-                            color="green"
-                            outlined
-                            type="password"
-                            v-model="form.password"
-                            :label="$t('auth.password')"
-                            @keyup.enter="login"
-                            :error="$v.form.password.$error"
-                        >
-                            <template v-slot:prepend>
-                                <q-icon name="lock" />
-                            </template>
-                            <template v-slot:append>
-                                <q-icon
-                                    name="close"
-                                    @click="form.password = ''"
-                                    class="cursor-pointer"
-                                />
-                            </template>
-                        </q-input>
-                        <div class="row">
-                            <q-checkbox keep-color 
-                                        v-model="form.rememberMe" 
-                                        :label="$t('auth.remember_me')" 
-                                        color="cyan" 
-                                        class="col-4 offset-4"
+                            </div>
+                        </q-card-section>
+                        <q-card-actions class="q-pl-md q-pr-md q-pb-md">
+                            <q-btn
+                                color="secondary full-width"
+                                type="submit"
+                                :label="$t('auth.login')"
+                                size="lg"
+                                :loading="loading"
                             />
-                        </div>
-
-                    </q-card-section>
-                    <q-card-actions class="q-pl-md q-pr-md q-pb-md">
-                        <q-btn
-                            color="secondary full-width"
-                            @click="login"
-                            :label="$t('auth.login')"
-                            size="lg"
-                            :loading="loading"
-                        />
-                    </q-card-actions>
-                </q-card>
+                        </q-card-actions>
+                    </q-card>
+                </q-form>
             </div>
         </div>
     </div>
@@ -78,7 +82,6 @@
 </template>
 
 <script type="text/javascript">
-import { required } from "vuelidate/lib/validators";
 
 export default {
     data() {
@@ -96,30 +99,21 @@ export default {
     },
     methods: {
         login() {
-            this.$v.form.$touch();
-            if (!this.$v.form.$error) {
-                this.loading = true;
-                this.$auth.login(this.form).then(() => {
-                    this.$router.push(this.$router.currentRoute.query.redirect || '/');
-                }).catch((error) => {
-                    if (error.response) {
-                        this.$q.dialog({
-                            message: this.$t('errors.general_error')
-                        })
-                        console.log(error);
-                    }
-                }).finally(() => {
-                    this.loading = false;
-                })
-            }
+            this.loading = true;
+            this.$auth.login(this.form).then(() => {
+                this.$router.push(this.$router.currentRoute.query.redirect || '/');
+            }).catch((error) => {
+                if (error.response) {
+                    this.$q.dialog({
+                        message: this.$t('errors.general_error')
+                    })
+                    console.log(error);
+                }
+            }).finally(() => {
+                this.loading = false;
+            })
         }
     },
-    validations: {
-        form: {
-            username: { required },
-            password: { required }
-        }
-    }
 }
 </script>
 <style scoped>

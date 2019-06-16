@@ -36,11 +36,11 @@ export default {
             icon: '图标',
             level: '等级',
             belongTo: '从属',
-            role: '默认角色',
+            roleNames: '角色',
             isLock: '是否锁定',
             isMenu: '菜单路由',
             isUse: '使用状态',
-
+            root: '根路由',
         }
     },
 
@@ -55,6 +55,8 @@ export default {
 
     //Errors
     errors: {
+        input_required: '* 请输入{item}',
+        select_required: '* 必须选择一个{item}',
         general_error: 'An error occured. Please try again.',
         not_found: 'Sorry, nothing here...',
         network: '网络错误，请检查你的网络状况！',

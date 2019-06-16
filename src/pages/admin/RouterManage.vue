@@ -21,9 +21,10 @@
                 row-key="id"
                 separator="cell"
             >
-                <template v-slot:body-cell-id="props">
+                <template v-slot:body-cell-operate="props">
                     <q-td auto-width :props="props">
                         <q-btn
+                            class="q-mr-md"
                             color="primary"
                             size="xs"
                             :label="$t('operate.edit')"
@@ -38,7 +39,6 @@
             :source-data="routerData"
             :all-routers="table.data"
             @refresh-table="getRoutersData"
-            @clean-data="routerData = false"
         />
     </div>
 </template>
@@ -60,102 +60,79 @@ export default {
                 columns:[
                     {
                         name: 'name',
-                        required: true,
                         label: this.$t('admin.router.name'),
                         align: 'left',
                         field: row => row.name,
-                        format: val => `${val}`,
                         sortable: true
                     },
                     {
                         name: 'path',
-                        required: true,
                         label: this.$t('admin.router.path'),
                         align: 'left',
                         field: row => row.path,
-                        format: val => `${val}`,
                         sortable: true
                     },
                     {
                         name: 'component',
-                        required: true,
                         label: this.$t('admin.router.component'),
                         align: 'left',
                         field: row => row.component,
-                        format: val => `${val}`,
                         sortable: true
                     },
                     {
                         name: 'roleNames',
-                        required: true,
-                        label: this.$t('admin.router.role'),
+                        label: this.$t('admin.router.roleNames'),
                         align: 'left',
-                        field: row => row.roleNames.length > 0 ? row.roleNames[0] : 'none',
-                        format: val => `${val}`,
+                        field: row => row.roleNames,
                         sortable: true
                     },
                     {
                         name: 'icon',
-                        required: true,
                         label: this.$t('admin.router.icon'),
                         align: 'left',
                         field: row => row.icon,
-                        format: val => `${val}`,
                         sortable: true
                     },
                     {
                         name: 'level',
-                        required: true,
                         label: this.$t('admin.router.level'),
                         align: 'left',
                         field: row => row.level,
-                        format: val => `${val}`,
                         sortable: true
                     },
                     {
                         name: 'belong_to',
-                        required: true,
                         label: this.$t('admin.router.belongTo'),
                         align: 'left',
                         field: row => row.belong_to,
-                        format: val => `${val}`,
                         sortable: true
                     },
                     {
                         name: 'is_lock',
-                        required: true,
                         label: this.$t('admin.router.isLock'),
                         align: 'left',
                         field: row => row.is_lock,
-                        format: val => `${val}`,
                         sortable: true
                     },
                     {
                         name: 'is_menu',
-                        required: true,
                         label: this.$t('admin.router.isMenu'),
                         align: 'left',
                         field: row => row.is_menu,
-                        format: val => `${val}`,
                         sortable: true
                     },
                     {
                         name: 'is_use',
-                        required: true,
                         label: this.$t('admin.router.isUse'),
                         align: 'left',
                         field: row => row.is_use,
-                        format: val => `${val}`,
                         sortable: true
                     },
                     {
-                        name: 'id',
-                        required: true,
+                        name: 'operate',
                         label: this.$t('operate.self'),
                         align: 'center',
-                        field: row => row.is_use,
-                        format: val => `${val}`,
-                        sortable: true
+                        sortable: false
                     },
                 ],
                 data:[]

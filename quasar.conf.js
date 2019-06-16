@@ -55,10 +55,12 @@ module.exports = function (ctx) {
                 'QCardSection',
                 'QCardActions',
                 //Form
+                'QForm',
                 'QInput',
                 'QCheckbox',
                 'QToggle',
                 'QSelect',
+                'QSlider',
                 //Table
                 'QTable',
                 'QTh',

@@ -23,7 +23,6 @@
             :width="250"
             :breakpoint="400"
             show-if-above
-            overlay
         >
             <q-scroll-area style="height: calc(100% - 70px); margin-top: 70px; border-right: 1px solid #ddd">
                 <q-list padding>

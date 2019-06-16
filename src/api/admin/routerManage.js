@@ -2,7 +2,7 @@ import { axiosInstance } from 'boot/axios';
 
 export function addOrEditRouter (data) {
     return axiosInstance({
-        url: '/admin/router/add',
+        url: '/admin/router/addedit',
         method: 'post',
         data: {
             id: data.id,
@@ -12,7 +12,7 @@ export function addOrEditRouter (data) {
             icon: data.icon,
             level: data.level,
             belong_to: data.belongTo,
-            role: data.role,
+            roleNames: data.roleNames,
             is_lock: data.isLock,
             is_menu: data.isMenu,
             is_use: data.isUse
