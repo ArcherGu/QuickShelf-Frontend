@@ -18,6 +18,7 @@
             <q-table
                 :data="table.data"
                 :columns="table.columns"
+                :pagination="table.pagination"
                 row-key="id"
                 separator="cell"
             >
@@ -57,6 +58,12 @@ export default {
         return {
             showAdd: false,
             table: {
+                pagination: {
+                    sortBy: 'name',
+                    descending: false,
+                    page: 1,
+                    rowsPerPage: 20
+                },
                 columns:[
                     {
                         name: 'name',
@@ -84,6 +91,7 @@ export default {
                         label: this.$t('admin.router.roleNames'),
                         align: 'left',
                         field: row => row.roleNames,
+                        format: val => `${val}`,
                         sortable: true
                     },
                     {
