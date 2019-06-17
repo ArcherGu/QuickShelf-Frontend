@@ -51,10 +51,13 @@
                     />
                     <q-select
                         class="q-mt-md"
-                        v-model="fatherRouter"
+                        v-model="editData.belongTo"
+                        emit-value
+                        map-options
+                        @input="setLimit"
                         :label="$t('admin.router.belongTo')"
                         :options="selectRouters"
-                        map-options
+
                     />
                     <div class="q-mt-md">
                         <span v-text="$t('admin.router.level')"></span>
@@ -171,7 +174,7 @@ export default {
             roles: [],
             disableRoles: [],
             editData: defaultEditData,
-            fatherRouter: defaultSelectRouterOption,
+            //fatherRouter: 0,
             minLevel: 0,
             details: {
                 title: this.$t('operate.add') + this.$t('admin.router.self'),
@@ -206,6 +209,22 @@ export default {
                     this.roles.push(role);
                 });
             });
+        },
+
+        setLimit() {
+            let fatherRouter = this.selectRouters.filter( it => it.value == this.editData.belongTo);
+            if (fatherRouter && fatherRouter.length > 0) {
+                fatherRouter = fatherRouter[0];
+                if (fatherRouter.label == 'none') {
+                    this.minLevel = 0;
+                    this.disableRoles = [];
+                }
+                else {
+                    this.minLevel = fatherRouter.minLevel + 1;
+                    this.editData.roleNames = fatherRouter.roleNames;
+                    this.disableRoles = this.roles.filter((it) => !fatherRouter.roleNames.includes(it));
+                }
+            }
         },
 
         changeDetails() {
@@ -257,17 +276,11 @@ export default {
             else {
                 this.editData = defaultEditData;
             }
+            this.setLimit();
         },
-        fatherRouter(newVal) {
-            this.editData.belongTo = newVal.value;
-            if (newVal.label == 'none') {
-                this.minLevel = 0;
-                this.disableRoles = [];
-            }
-            else {
-                this.minLevel = newVal.minLevel + 1;
-                this.editData.roleNames = newVal.roleNames;
-                this.disableRoles = this.roles.filter((it) => !newVal.roleNames.includes(it));
+        minLevel(newVal) {
+            if (this.editData.level < newVal) {
+                this.editData.level = newVal;
             }
         },
         show(newVal) {
