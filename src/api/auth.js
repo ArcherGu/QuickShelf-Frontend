@@ -25,3 +25,10 @@ export function getUser (data) {
         method: 'get'
     });
 }
+
+export function getSelfRouters () {
+    return axiosInstance({
+        url: '/auth/routers',
+        method: 'get'
+    });
+}
