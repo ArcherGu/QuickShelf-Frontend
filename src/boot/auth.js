@@ -12,6 +12,9 @@ export default ({ router, store, Vue }) => {
                     }
                 });
             } 
+            else {
+                
+            }
             // else if (isArrayOrString(record.meta.auth) && !store.getters['auth/check'](record.meta.auth)) {
             //     router.push('/account');
             // }
