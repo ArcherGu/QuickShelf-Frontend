@@ -1,9 +1,9 @@
 import { isArrayOrString } from "@/utils/tools.js";
+import { filterAsyncRouter } from "@/router/tools.js";
 
 export default ({ router, store, Vue }) => {
     router.beforeEach((to, from, next) => {
-        const record = to.matched.find(record => record.meta.auth);
-        if (record) {
+        if (to.meta.auth != false) {
             if (!store.getters['auth/loggedIn']) {
                 router.push({
                     path: '/login',
@@ -11,15 +11,25 @@ export default ({ router, store, Vue }) => {
                         redirect: to.fullPath
                     }
                 });
-            } 
-            else {
-                
             }
-            // else if (isArrayOrString(record.meta.auth) && !store.getters['auth/check'](record.meta.auth)) {
-            //     router.push('/account');
-            // }
+            else {
+                if (!store.getters['auth/gotRouters']) {
+                    store.dispatch('auth/getUserRouters').then(() => {
+                        //Format Menu;
+                        let rawData = JSON.parse(JSON.stringify(store.getters['auth/myRouters']));
+                        let routersData = filterAsyncRouter(rawData);
+                        router.addRoutes(routersData);
+                        next();
+                    });
+                }
+                else {
+                    next();
+                }
+            }
         }
-        next();
+        else {
+            next();
+        }
     })
 
     var helper = {}

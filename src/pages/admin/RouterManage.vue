@@ -49,7 +49,7 @@ import { getAllRouters } from "@/api/admin/routerManage.js";
 import { isArray } from "@/utils/tools.js";
 
 export default {
-    name: 'AdminPages',
+    name: 'AdminRouters',
     components: {
         RouterEditDialog
     },

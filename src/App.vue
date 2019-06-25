@@ -19,9 +19,6 @@ export default {
 
             store.dispatch('auth/fetch').then(() => {
                 if (store.getters['auth/loggedIn']) {
-                    // store.dispatch('routers/getRoutersData').then(() => {
-                    //     //Format Menu;
-                    // });
                     redirect(currentRoute.query.redirect);
                 }
                 else {

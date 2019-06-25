@@ -1,6 +1,6 @@
 import { axiosInstance } from 'boot/axios';
 import { LocalStorage, SessionStorage } from 'quasar';
-import { doRegister, doLogin, getUser} from '@/api/auth';
+import { doRegister, doLogin, getUser, getSelfRouters } from '@/api/auth';
 
 const TOKEN_KEY = 'QuickShelf-Token';
 
@@ -34,6 +34,12 @@ export function fetch (state) {
             state.commit('setUser', response.data.result.user);
         })
     }
+}
+
+export function getUserRouters (state) {
+    return getSelfRouters().then((response) => {
+        state.commit('setRouters', response.data.result);
+    })
 }
 
 export function logout (state) {
