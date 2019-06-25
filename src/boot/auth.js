@@ -19,7 +19,7 @@ export default ({ router, store, Vue }) => {
                         let rawData = JSON.parse(JSON.stringify(store.getters['auth/myRouters']));
                         let routersData = filterAsyncRouter(rawData);
                         router.addRoutes(routersData);
-                        next();
+                        next({ ...to, replace: true });
                     });
                 }
                 else {

@@ -70,7 +70,8 @@ module.exports = function (ctx) {
                 'QAvatar',
                 'QScrollArea',
                 'QImg',
-                'QDialog'
+                'QDialog',
+                'QExpansionItem'
             ],
 
             directives: [

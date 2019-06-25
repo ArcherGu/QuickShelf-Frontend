@@ -26,7 +26,18 @@
         >
             <q-scroll-area style="height: calc(100% - 70px); margin-top: 70px; border-right: 1px solid #ddd">
                 <q-list padding>
-                    <q-item
+                    <!-- <q-expansion-item
+                        v-for="(item, index) in menuData"
+                        :icon="meta."
+                        :label="Index" 
+                        clickable
+                        v-ripple
+                        exact
+                        to="/"
+                    >
+
+                    </q-expansion-item> -->
+                    <!-- <q-item
                         clickable
                         v-ripple
                         exact
@@ -84,7 +95,7 @@
                         <q-item-section>
                             Router
                         </q-item-section>
-                    </q-item>
+                    </q-item> -->
                 </q-list>
             </q-scroll-area>
 
@@ -119,7 +130,41 @@
 export default {
     data() {
         return {
-            showMenu: true
+            showMenu: true,
+            menuData: []
+        }
+    },
+    created() {
+        if (this.$store.getters['auth/gotRouters']) {
+            let rawData = JSON.parse(JSON.stringify(this.$store.getters['auth/myRouters']));
+            this.menuData = this.formateMenu(rawData);
+            console.log(this.menuData);
+        }
+    },
+    methods: {
+        formateMenu(data) {
+            data.forEach(route => {
+                if (route.children && route.children.length) {
+                    route.children = this.getTree(route.children, route.path);
+                }
+            });
+            return data;
+        },
+
+        getTree(asyncRouterMap, prefix) {
+            const tree = asyncRouterMap.filter(route => {
+                if (route.meta.menu) {
+                    route.path = `${prefix}${route.path == ''? '' : '/'}${route.path}`;
+                    if (route.children && route.children.length) {
+                        route.children = this.getTree(route.children, route.path)
+                    }
+                    return true;
+                }
+
+                return false;
+            })
+
+            return tree
         }
     }
 }
