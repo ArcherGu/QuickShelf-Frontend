@@ -9,10 +9,11 @@
         <q-card style="width: 500px; max-width: 80vw;">
             <q-form @submit="save">
                 <q-card-section>
-                    <div
+                    <span
                         class="text-h6"
                         v-text="details.title"
-                    ></div>
+                    >
+                    </span>
                 </q-card-section>
 
                 <q-card-section>
@@ -154,7 +155,7 @@ const defaultSelectRouterOption = {
 };
 
 export default {
-    name: 'router-edit-dialog',
+    name: 'RouterEditDialog',
     props: {
         show: {
             type: Boolean,
