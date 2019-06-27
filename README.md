@@ -1,3 +1,2 @@
-# Quasar App
-
-> WIP
+# QuickShelf
+Experimental project with learning nature
