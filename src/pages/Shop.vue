@@ -7,6 +7,11 @@
         size="lg"
     />
     <p class="text-faded">This is SHop</p>
+    <q-card style="width: 500px; max-width: 80vw;">
+        <q-card-section>
+            <router-view />
+        </q-card-section>
+    </q-card>
   </div>
 </template>
 
