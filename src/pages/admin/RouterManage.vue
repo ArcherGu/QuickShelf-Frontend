@@ -45,7 +45,7 @@
 
 <script>
 import RouterEditDialog from "@/components/admin/RouterEditDialog.vue";
-import { getAllRouters } from "@/api/admin/routerManage.js";
+import { getAllRouters } from "@/api/admin/router_manage.js";
 import { isArray } from "@/utils/tools.js";
 
 export default {
@@ -63,6 +63,13 @@ export default {
                         label: this.$t('admin.router.name'),
                         align: 'left',
                         field: row => row.name,
+                        sortable: true
+                    },
+                    {
+                        name: 'title',
+                        label: this.$t('admin.router.title'),
+                        align: 'left',
+                        field: row => row.title,
                         sortable: true
                     },
                     {
@@ -95,10 +102,10 @@ export default {
                         sortable: true
                     },
                     {
-                        name: 'level',
-                        label: this.$t('admin.router.level'),
+                        name: 'sort',
+                        label: this.$t('admin.router.sort'),
                         align: 'left',
-                        field: row => row.level,
+                        field: row => row.sort,
                         sortable: true
                     },
                     {

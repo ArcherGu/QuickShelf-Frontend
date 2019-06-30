@@ -18,12 +18,3 @@ export function filterAsyncRouter(asyncRouterMap) {
 
     return accessedRouters
 }
-
-export function routerGo(to, next, router, rawRouters) {
-    let routersData = filterAsyncRouter(rawRouters) //过滤路由
-    router.addRoutes(routersData) //动态添加路由
-    next({
-        ...to,
-        replace: true
-    })
-}

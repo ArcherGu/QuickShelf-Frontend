@@ -15,10 +15,9 @@ export default ({ router, store, Vue }) => {
             else {
                 if (!store.getters['auth/gotRouters']) {
                     store.dispatch('auth/getUserRouters').then(() => {
-                        //Format Menu;
-                        // let rawData = JSON.parse(JSON.stringify(store.getters['auth/myRouters']));
-                        // let routersData = filterAsyncRouter(rawData);
-                        // router.addRoutes(routersData);
+                        let rawData = JSON.parse(JSON.stringify(store.getters['auth/myRouters']));
+                        let routersData = filterAsyncRouter(rawData);
+                        router.addRoutes(routersData);
                         next({ ...to, replace: true });
                     });
                 }

@@ -21,20 +21,35 @@
                         v-model="editData.path"
                         :label="$t('admin.router.path')"
                         :rules="[ val => val && val.length > 0 || $t('errors.input_required', { item: $t('admin.router.path') })]"
+                        outlined
+                        dense
                     />
                     <q-input
                         v-model="editData.name"
                         :label="$t('admin.router.name')"
                         :rules="[ val => val && val.length > 0 || $t('errors.input_required', { item: $t('admin.router.name') })]"
+                        outlined
+                        dense
                     />
                     <q-input
                         v-model="editData.component"
                         :label="$t('admin.router.component')"
                         :rules="[ val => val && val.length > 0 || $t('errors.input_required', { item: $t('admin.router.component') })]"
+                        outlined
+                        dense
+                    />
+                    <q-input
+                        v-model="editData.title"
+                        :label="$t('admin.router.title')"
+                        :rules="[ val => val && val.length > 0 || $t('errors.input_required', { item: $t('admin.router.title') })]"
+                        outlined
+                        dense
                     />
                     <q-input
                         v-model="editData.icon"
                         :label="$t('admin.router.icon')"
+                        outlined
+                        dense
                     />
 
                     <q-select
@@ -42,6 +57,8 @@
                         emit-value
                         map-options
                         multiple
+                        outlined
+                        dense
                         v-model="editData.roleNames"
                         :options="roles"
                         :option-value="(item) => item"
@@ -51,23 +68,24 @@
                         :rules="[ val => val && val.length > 0 || $t('errors.select_required', { item: $t('admin.router.roleNames') })]"
                     />
                     <q-select
-                        class="q-mt-md"
                         v-model="editData.belongTo"
                         emit-value
                         map-options
+                        outlined
+                        dense
                         @input="setLimit"
                         :label="$t('admin.router.belongTo')"
                         :options="selectRouters"
 
                     />
                     <div class="q-mt-md">
-                        <span v-text="$t('admin.router.level')"></span>
+                        <span v-text="$t('admin.router.sort')"></span>
                         <div class="q-px-lg">
                             <q-slider
                                 class="q-ml-lg"
-                                v-model="editData.level"
-                                :min="minLevel"
-                                :max="5"
+                                v-model="editData.sort"
+                                :min="0"
+                                :max="20"
                                 :step="1"
                                 label
                                 label-always
@@ -130,7 +148,7 @@
 </template>
 
 <script>
-import { addOrEditRouter } from "@/api/admin/routerManage.js";
+import { addOrEditRouter } from "@/api/admin/router_manage.js";
 import { getAllRoles } from "@/api/role.js";
 
 const defaultEditData = {
@@ -138,8 +156,9 @@ const defaultEditData = {
     path: '',
     name: '',
     component: '',
+    title: '',
     icon: '',
-    level: 0,
+    sort: 0,
     belongTo: 0,
     roleNames: ['admin'],
     isLock: 0,
@@ -150,7 +169,6 @@ const defaultEditData = {
 const defaultSelectRouterOption = {
     label: 'none',
     value: 0,
-    minLevel: 0,
     roleNames: ['admin']
 };
 
@@ -175,8 +193,6 @@ export default {
             roles: [],
             disableRoles: [],
             editData: defaultEditData,
-            //fatherRouter: 0,
-            minLevel: 0,
             details: {
                 title: this.$t('operate.add') + this.$t('admin.router.self'),
                 saveBtn: {
@@ -217,11 +233,9 @@ export default {
             if (fatherRouter && fatherRouter.length > 0) {
                 fatherRouter = fatherRouter[0];
                 if (fatherRouter.label == 'none') {
-                    this.minLevel = 0;
                     this.disableRoles = [];
                 }
                 else {
-                    this.minLevel = fatherRouter.minLevel + 1;
                     this.editData.roleNames = fatherRouter.roleNames;
                     this.disableRoles = this.roles.filter((it) => !fatherRouter.roleNames.includes(it));
                 }
@@ -245,14 +259,11 @@ export default {
         selectRouters() {
             let selectData = [defaultSelectRouterOption];
             this.allRouters.forEach((it) => {
-                if (it.level < 5) {
-                    selectData.push({
-                        label: `${it.name} (${it.path})`,
-                        value: it.id,
-                        minLevel: it.level,
-                        roleNames: it.roleNames.length > 0 ? it.roleNames : ['admin']
-                    });
-                }
+                selectData.push({
+                    label: `${it.name} (${it.path})`,
+                    value: it.id,
+                    roleNames: it.roleNames.length > 0 ? it.roleNames : ['admin']
+                });
             });
             return selectData;
         }
@@ -264,9 +275,10 @@ export default {
                     id: parseInt(newVal.id),
                     path: newVal.path,
                     name: newVal.name,
+                    title: newVal.title,
                     component: newVal.component,
                     icon: newVal.icon,
-                    level: parseInt(newVal.level),
+                    sort: parseInt(newVal.sort),
                     belongTo: parseInt(newVal.belong_to),
                     roleNames: newVal.roleNames.length > 0 ? newVal.roleNames : ['admin'],
                     isLock: parseInt(newVal.is_lock),
@@ -278,11 +290,6 @@ export default {
                 this.editData = defaultEditData;
             }
             this.setLimit();
-        },
-        minLevel(newVal) {
-            if (this.editData.level < newVal) {
-                this.editData.level = newVal;
-            }
         },
         show(newVal) {
             this.myShow = newVal;
