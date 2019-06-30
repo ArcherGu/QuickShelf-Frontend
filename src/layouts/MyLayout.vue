@@ -8,6 +8,16 @@
             <q-toolbar style="height: 70px;">
                 <q-btn
                     flat
+                    class="sidebar-mini-btn"
+                    @click="miniMenu = !miniMenu"
+                    round
+                    dense
+                    color="grey-7"
+                    icon="menu"
+                />
+                <q-btn
+                    flat
+                    class="sidebar-show-btn"
                     @click="showMenu = !showMenu"
                     round
                     dense
@@ -20,8 +30,11 @@
 
         <q-drawer
             v-model="showMenu"
-            :width="250"
-            :breakpoint="400"
+            :width="260"
+            :mini-width="80"
+            :breakpoint="1023"
+            :mini="miniMenu"
+            @click.capture="drawerClick"
             show-if-above
         >
             <sidebar></sidebar>
@@ -30,16 +43,15 @@
                 class="absolute-top"
                 style="height: 70px; border-right: 1px solid #ddd"
             >
-                <div style="height: 70px">
+                <div class="logo q-ml-auto q-mr-auto">
                     <q-avatar
-                        size="45px"
-                        class="q-mb-sm"
+                        class="logo-img"
                     >
                         <img src="~assets/quickshelf.png" />
                     </q-avatar>
-                    <span class="text-weight-bold">QuickShelf</span>
-                    <span>@{{$auth.user().username}}</span>
+                    <span class="text-weight-bold q-mini-drawer-hide">QuickShelf</span>
                 </div>
+
                 <q-separator inset />
             </div>
         </q-drawer>
@@ -62,7 +74,20 @@ export default {
     },
     data() {
         return {
-            showMenu: true
+            showMenu: true,
+            miniMenu: true,
+        }
+    },
+    methods: {
+        drawerClick (e) {
+            if (this.miniMenu) {
+                this.miniMenu = false
+
+                // notice we have registered an event with capture flag;
+                // we need to stop further propagation as this click is
+                // intended for switching drawer to "normal" mode only
+                e.stopPropagation()
+            }
         }
     }
 }
@@ -71,5 +96,42 @@ export default {
 <style scoped>
     .app-container {
         padding: 20px;
+    }
+    .logo {
+        padding: 18px 0;
+        margin: 0;
+        box-shadow: inset -1px 0 0 0 #cfcfca;
+        height: 70px;
+        position: relative;
+        z-index: 4;
+        display: block;
+    }
+    .logo-img {
+        width: 34px;
+        display: inline-block;
+        height: 34px;
+        margin-left: 23px;
+        margin-right: 15px;
+        background: #fff;
+        border-radius: 40px;
+        text-align: center;
+    }
+
+    @media (max-width: 1023px) {
+        .sidebar-show-btn {
+            display: inline;
+        }
+        .sidebar-mini-btn {
+            display: none;
+        }
+    }
+
+    @media (min-width: 1023px) {
+        .sidebar-show-btn {
+            display: none;
+        }
+        .sidebar-mini-btn {
+            display: inline;
+        }
     }
 </style>

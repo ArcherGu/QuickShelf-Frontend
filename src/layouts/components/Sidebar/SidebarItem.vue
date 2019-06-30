@@ -11,6 +11,7 @@
                 clickable
                 v-ripple
                 exact
+                class="custom-pl"
             >
                 <q-item-section avatar>
                     <q-icon :name="item.children[0].meta.icon" />
@@ -26,6 +27,7 @@
                     :icon="item.meta.icon"
                     :label="item.meta.title"
                     :content-inset-level="0.5"
+                    class="custom-pl"
                 >
                     <template
                         v-for="child in item.children"
@@ -47,7 +49,7 @@
                             exact
                         >
                             <q-item-section avatar>
-                                <q-icon :name="child.meta.icon" />
+                                <q-icon :name="child.meta.icon"/>
                             </q-item-section>
 
                             <q-item-section>
@@ -99,3 +101,9 @@ export default {
     },
 }
 </script>
+
+<style scoped>
+    .custom-pl .q-item__section--avatar{
+        padding-left: 11.5px;
+    }
+</style>
