@@ -1,10 +1,9 @@
 const routes = [
     {
         path: '/login',
-        name: 'login',
         meta: { 
             auth: false,
-            is_menu: false,
+            menu: false,
         },
         component: () => import('pages/Login')
     },
@@ -165,7 +164,7 @@ const routes = [
 if (process.env.MODE !== 'ssr') {
     routes.push({
         path: '*',
-        meta: { is_menu: false },
+        meta: { menu: false },
         component: () => import('pages/Error404.vue')
     })
 }

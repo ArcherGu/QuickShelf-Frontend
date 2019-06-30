@@ -8,6 +8,7 @@ export function addOrEditRouter (data) {
             id: data.id,
             path: data.path,
             name: data.name,
+            redirect: data.redirect,
             component: data.component,
             title: data.title,
             icon: data.icon,

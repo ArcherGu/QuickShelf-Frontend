@@ -14,6 +14,7 @@ export default {
     },
 
     common: {
+        none: '无',
         dataTable: '数据列表'
     },
 
@@ -32,6 +33,7 @@ export default {
             self: '路由',
             path: '路径',
             name: '名称',
+            redirect: '重定向',
             component: '组件',
             title: '标题',
             icon: '图标',

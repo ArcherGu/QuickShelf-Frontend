@@ -14,8 +14,6 @@ export default {
     components: { SidebarItem },
     computed: {
         routes() {
-            //console.log(this.$router.options.routes);
-            console.log(this.$router.options.routes);
             return this.$router.options.routes;
         },
     }

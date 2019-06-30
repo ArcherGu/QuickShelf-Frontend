@@ -80,6 +80,14 @@ export default {
                         sortable: true
                     },
                     {
+                        name: 'redirect',
+                        label: this.$t('admin.router.redirect'),
+                        align: 'left',
+                        field: row => row.redirect,
+                        format: val => val? `${val}`: this.$t('common.none'),
+                        sortable: true
+                    },
+                    {
                         name: 'component',
                         label: this.$t('admin.router.component'),
                         align: 'left',

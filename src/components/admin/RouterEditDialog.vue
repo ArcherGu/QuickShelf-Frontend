@@ -32,6 +32,13 @@
                         dense
                     />
                     <q-input
+                        v-model="editData.redirect"
+                        :label="$t('admin.router.redirect')"
+                        :rules="[]"
+                        outlined
+                        dense
+                    />
+                    <q-input
                         v-model="editData.component"
                         :label="$t('admin.router.component')"
                         :rules="[ val => val && val.length > 0 || $t('errors.input_required', { item: $t('admin.router.component') })]"
@@ -155,6 +162,7 @@ const defaultEditData = {
     id: 0,
     path: '',
     name: '',
+    redirect: '',
     component: '',
     title: '',
     icon: '',
@@ -275,6 +283,7 @@ export default {
                     id: parseInt(newVal.id),
                     path: newVal.path,
                     name: newVal.name,
+                    redirect: newVal.redirect,
                     title: newVal.title,
                     component: newVal.component,
                     icon: newVal.icon,

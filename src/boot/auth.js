@@ -1,5 +1,5 @@
 import { isArrayOrString } from "@/utils/tools.js";
-import { filterAsyncRouter } from "@/router/tools.js";
+import { filterAsyncRouter } from "@/router/utils/tools.js";
 
 export default ({ router, store, Vue }) => {
     router.beforeEach((to, from, next) => {
@@ -18,6 +18,7 @@ export default ({ router, store, Vue }) => {
                         let rawData = JSON.parse(JSON.stringify(store.getters['auth/myRouters']));
                         let routersData = filterAsyncRouter(rawData);
                         router.addRoutes(routersData);
+                        router.options.routes=store.getters['auth/myRouters'];
                         next({ ...to, replace: true });
                     });
                 }
