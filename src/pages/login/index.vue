@@ -6,7 +6,7 @@
                     <q-card>
                         <q-card-section>
                             <img
-                                src="../assets/login-card.png"
+                                src="@/assets/login-card.png"
                                 style="width: 100%"
                             >
                         </q-card-section>
@@ -122,7 +122,7 @@ export default {
     padding-top: 150px;
     min-height: 100vh;
     height: auto;
-    background-image: url("../assets/bg.jpg");
+    background-image: url("../../assets/bg.jpg");
     background-size: cover;
     background-position: top center;
 }

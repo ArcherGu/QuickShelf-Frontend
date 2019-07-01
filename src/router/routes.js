@@ -5,7 +5,7 @@ const routes = [
             auth: false,
             menu: false,
         },
-        component: () => import('pages/Login')
+        component: () => import('pages/login/index.vue')
     },
     // {
     //     path: '',
@@ -165,7 +165,7 @@ if (process.env.MODE !== 'ssr') {
     routes.push({
         path: '*',
         meta: { menu: false },
-        component: () => import('pages/Error404.vue')
+        component: () => import('pages/error/404.vue')
     })
 }
 

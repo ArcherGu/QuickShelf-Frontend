@@ -1,8 +1,14 @@
 import { axiosInstance } from 'boot/axios';
 
-export function doRegister (data) {
+export const AUTH_TYPE = {
+    STAFF: 'staff',
+    MANAGER: 'manager',
+    BOSS: 'boss'
+};
+
+export function doRegister (data, type) {
     return axiosInstance({
-        url: '/auth/register',
+        url: `/auth/register/${type}`,
         method: 'post',
         data: data
     });

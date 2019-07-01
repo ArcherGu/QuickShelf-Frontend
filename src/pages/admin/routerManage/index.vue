@@ -18,6 +18,7 @@
             <q-table
                 :data="table.data"
                 :columns="table.columns"
+                :pagination.sync="table.pagination"
                 row-key="id"
                 separator="cell"
             >
@@ -44,12 +45,12 @@
 </template>
 
 <script>
-import RouterEditDialog from "@/components/admin/RouterEditDialog.vue";
+import RouterEditDialog from "./components/RouterEditDialog.vue";
 import { getAllRouters } from "@/api/admin/router_manage.js";
 import { isArray } from "@/utils/tools.js";
 
 export default {
-    name: 'AdminRouters',
+    name: 'RouterManage',
     components: {
         RouterEditDialog
     },
@@ -57,6 +58,13 @@ export default {
         return {
             showAdd: false,
             table: {
+                pagination: {
+                    sortBy: 'sort',
+                    descending: false,
+                    page: 1,
+                    rowsPerPage: 20
+                    // rowsNumber: xx if getting data from a server
+                },
                 columns:[
                     {
                         name: 'name',
