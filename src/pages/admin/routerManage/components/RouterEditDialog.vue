@@ -2,7 +2,7 @@
 
     <q-dialog
         v-model="myShow"
-        ref="addDialog"
+        ref="addEditDialog"
         @before-show="changeDetails"
     >
 
@@ -220,7 +220,7 @@ export default {
     methods: {
         save() {
             addOrEditRouter(this.editData).then((response) => {
-                this.$refs.addDialog.hide();
+                this.$refs.addEditDialog.hide();
                 this.editData = defaultEditData;
                 this.$emit('refresh-table');
             }).catch((error) => {

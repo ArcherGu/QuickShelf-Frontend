@@ -1,7 +1,7 @@
 <template>
     <div>
         <q-toolbar class="bg-white text-black shadow-1 rounded-borders">
-            <q-btn flat round dense icon="menu" />
+            <q-icon name="insert_chart_outlined" size="24px"/>
             <q-toolbar-title>
                 <span v-text="$t('common.dataTable')"></span>
             </q-toolbar-title>
@@ -10,7 +10,7 @@
                 round 
                 dense 
                 icon="add"
-                @click="showAddDialog(false)" 
+                @click="showAddEditDialog(false)" 
             />
         </q-toolbar>
 
@@ -29,14 +29,14 @@
                             color="primary"
                             size="xs"
                             :label="$t('operate.edit')"
-                            @click="showAddDialog(props.row)"
+                            @click="showAddEditDialog(props.row)"
                         />
                     </q-td>
                 </template>
             </q-table>
         </q-card>
         <router-edit-dialog 
-            v-model="showAdd"
+            v-model="showDialog"
             :source-data="routerData"
             :all-routers="table.data"
             @refresh-table="getRoutersData"
@@ -56,7 +56,7 @@ export default {
     },
     data() {
         return {
-            showAdd: false,
+            showDialog: false,
             table: {
                 pagination: {
                     sortBy: 'sort',
@@ -168,9 +168,9 @@ export default {
         this.getRoutersData();
     },
     methods: {
-        showAddDialog(row){
+        showAddEditDialog(row){
             this.routerData = row;
-            this.showAdd = true;
+            this.showDialog = true;
         },
 
         getRoutersData() {
