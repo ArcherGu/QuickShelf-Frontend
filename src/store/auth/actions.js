@@ -32,7 +32,7 @@ export function fetch (state) {
         axiosInstance.defaults.headers.common['Authorization'] = 'Bearer ' + token;
         return getUser().then((response) => {
             state.commit('setUser', response.data.result.user);
-        })
+        });
     }
 }
 

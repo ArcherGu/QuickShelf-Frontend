@@ -76,7 +76,10 @@ export default {
         general_error: 'An error occured. Please try again.',
         not_found: 'Sorry, nothing here...',
         network: '网络错误，请检查你的网络状况！',
-        fields: 'Please correct the input fields'
+        fields: 'Please correct the input fields',
+        admin_flag: '管理员标示错误！',
+        unauthorized: '抱歉！您没有权限！',
+        login_failed: '登陆失败，用户名或者密码错误！',
     },
 
     //Messages 信息类

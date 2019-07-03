@@ -105,9 +105,8 @@ export default {
             }).catch((error) => {
                 if (error.response) {
                     this.$q.dialog({
-                        message: this.$t('errors.general_error')
+                        message: this.$t(error.response.data.result)
                     })
-                    console.log(error);
                 }
             }).finally(() => {
                 this.loading = false;
