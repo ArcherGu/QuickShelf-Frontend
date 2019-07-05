@@ -180,6 +180,9 @@ export default {
         addCompany(bossId) {
             this.companyData.bossId = bossId;
             addOrEditCompany(this.companyData).then((response) => {
+                this.userData = defaultUserData;
+                this.companyData = defaultCompanyData;
+
                 this.$refs.addDialog.hide();
                 this.$emit('refresh-table');
             }).catch((error) => {
