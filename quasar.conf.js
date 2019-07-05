@@ -68,6 +68,7 @@ module.exports = function (ctx) {
                 'QTd',
                 //Ex
                 'QAvatar',
+                'QBadge',
                 'QScrollArea',
                 'QImg',
                 'QDialog',

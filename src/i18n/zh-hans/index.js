@@ -19,7 +19,8 @@ export default {
         dataTable: '数据列表',
         max: '最大',
         min: '最小',
-        amount: '数量'
+        amount: '数量',
+        flag: '标识'
     },
 
     //Shop 店铺类
@@ -31,12 +32,24 @@ export default {
     auth: {
         username: '用户名',
         password: '密码',
+        confirm_password: '确认密码',
         login: "登陆",
         logining: "登陆中...",
         remember_me: "记住我",
         real_name: '真实姓名',
         phone_number: '手机号码',
-        company: '公司',
+    },
+
+    company: {
+        self: '公司',
+    },
+
+    router: {
+        index_home: '首页',
+        admin: '系统管理',
+        admin_home: '控制台',
+        router_manage: '路由管理',
+        boss_manage: '老板管理'
     },
 
     //Admin 管理员类
@@ -73,10 +86,10 @@ export default {
         input_required: '* 请输入{item}',
         input_available: '* 请输入有效的{item}',
         select_required: '* 必须选择一个{item}',
-        general_error: 'An error occured. Please try again.',
-        not_found: 'Sorry, nothing here...',
+        diff_pwd: '两次密码不一致！',
+        easy_pwd: '密码长度必须大于等于{num}位',
+        illegal_pwd: '密码必须由数字或者大小写字母组成',
         network: '网络错误，请检查你的网络状况！',
-        fields: 'Please correct the input fields',
         admin_flag: '管理员标示错误！',
         unauthorized: '抱歉！您没有权限！',
         login_failed: '登陆失败，用户名或者密码错误！',

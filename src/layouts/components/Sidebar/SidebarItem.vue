@@ -18,14 +18,14 @@
                 </q-item-section>
 
                 <q-item-section>
-                    <q-item-label v-text="item.children[0].meta.title"></q-item-label>
+                    <q-item-label v-text="$t(`router.${item.children[0].meta.title}`)"></q-item-label>
                 </q-item-section>
             </q-item>
 
             <template v-else>
                 <q-expansion-item
                     :icon="item.meta.icon"
-                    :label="item.meta.title"
+                    :label="$t(`router.${item.meta.title}`)"
                     :content-inset-level="0.5"
                     class="mini-menu-custom-pl"
                 >
@@ -53,7 +53,7 @@
                             </q-item-section>
 
                             <q-item-section>
-                                <q-item-label v-text="child.meta.title"></q-item-label>
+                                <q-item-label v-text="$t(`router.${child.meta.title}`)"></q-item-label>
                             </q-item-section>
                         </q-item>
 
