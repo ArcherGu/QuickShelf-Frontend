@@ -17,3 +17,10 @@ export function checkCompanyName (data) {
         }
     });
 }
+
+export function getAllBosses () {
+    return axiosInstance({
+        url: '/admin/boss/all',
+        method: 'get'
+    });
+}
