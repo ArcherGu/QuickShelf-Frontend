@@ -18,8 +18,12 @@
                 <q-card-section>
                     <q-input
                         v-model="userData.username"
+                        :loading="check.aLoading"
+                        @blur="checkUsername"
                         :label="$t('auth.username')"
                         :rules="[ val => val && val.length > 0 || $t('errors.input_required', { item: $t('auth.username') })]"
+                        :error="!check.aNameCheck"
+                        :error-message="$t('errors.input_exist', { item: $t('auth.username')})"
                         lazy-rules
                         outlined
                         dense
@@ -69,8 +73,14 @@
                     />
                     <q-input
                         v-model="companyData.name"
+                        @input="check.bLoading = true"
+                        @blur="checkCompanyName"
                         :label="$t('company.self')"
-                        :rules="[ val => val && val.length > 0 || $t('errors.input_required', { item: $t('company.self') })]"
+                        :rules="[ 
+                            val => val && val.length > 0 || $t('errors.input_required', { item: $t('company.self') }),
+                        ]"
+                        :error="!check.bNameCheck"
+                        :error-message="$t('errors.input_exist', { item: $t('company.self')})"
                         lazy-rules
                         outlined
                         dense
@@ -100,7 +110,6 @@
                         dense
                     />
                 </q-card-section>
-
                 <q-card-actions align="right">
                     <q-btn
                         :label="$t('operate.add') + $t('role.boss')"
@@ -122,8 +131,8 @@
 </template>
 
 <script>
-import { doRegister, AUTH_TYPE } from "@/api/auth.js";
-import { addOrEditCompany } from "@/api/admin/company_manage.js";
+import { doRegister, checkUsername, AUTH_TYPE } from "@/api/auth.js";
+import { addOrEditCompany, checkCompanyName } from "@/api/admin/company_manage.js";
 
 const defaultUserData = {
     username: '',
@@ -155,6 +164,12 @@ export default {
             myShow: this.show,
             userData: defaultUserData,
             companyData: defaultCompanyData,
+            check: {
+                aNameCheck: true, //Username
+                bNameCheck: true, //Company Name
+                aLoading: false,
+                bLoading: false,
+            }
         }
     },
     model: {
@@ -191,6 +206,34 @@ export default {
                         message: this.$t(error.response.data.result)
                     })
                 }
+            })
+        },
+
+        checkUsername() {
+            this.check.aLoading = true;
+            checkUsername(this.userData.username).then((response) => {
+                if (response.data.result == "success") {
+                    this.check.aNameCheck = true;
+                }
+                else{
+                    this.check.aNameCheck = false;
+                }
+            }).finally(() => {
+                this.check.aLoading = false;
+            })
+        },
+
+        checkCompanyName() {
+            this.check.bLoading = true;
+            checkCompanyName(this.companyData.name).then((response) => {
+                if (response.data.result == "success") {
+                    this.check.bNameCheck = true;
+                }
+                else{
+                    this.check.bNameCheck = false;
+                }
+            }).finally(() => {
+                this.check.bLoading = false;
             })
         }
     },

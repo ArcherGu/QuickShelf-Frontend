@@ -85,6 +85,7 @@ export default {
     errors: {
         input_required: '* 请输入{item}',
         input_available: '* 请输入有效的{item}',
+        input_exist: '{item}已经存在',
         select_required: '* 必须选择一个{item}',
         diff_pwd: '两次密码不一致！',
         easy_pwd: '密码长度必须大于等于{num}位',

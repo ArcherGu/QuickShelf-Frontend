@@ -14,6 +14,16 @@ export function doRegister (data, type) {
     });
 }
 
+export function checkUsername (data) {
+    return axiosInstance({
+        url: '/auth/check',
+        method: 'post',
+        data: {
+            username: data
+        }
+    });
+}
+
 export function doLogin (data) {
     return axiosInstance({
         url: '/auth/login',
