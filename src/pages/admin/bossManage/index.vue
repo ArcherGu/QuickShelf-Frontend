@@ -29,6 +29,7 @@
                             color="primary"
                             size="xs"
                             :label="$t('operate.edit')"
+                            @click="goToEditPage(props.row)"
                         />
                     </q-td>
                 </template>
@@ -55,20 +56,19 @@ export default {
     data() {
         return {
             showDialog: false,
-                        table: {
+            table: {
                 pagination: {
-                    sortBy: 'sort',
+                    sortBy: 'id',
                     descending: false,
                     page: 1,
                     rowsPerPage: 20
-                    // rowsNumber: xx if getting data from a server
                 },
                 columns:[
                     {
                         name: 'real_name',
                         label: this.$t('auth.real_name'),
                         align: 'left',
-                        field: row => row.real_name,
+                        field: row => row.real_name + `${row.is_use? '' : '(被冻结)'}`,
                         sortable: true
                     },
                     {
@@ -120,6 +120,9 @@ export default {
                     this.table.data = response.data.result;
                 }
             });
+        },
+        goToEditPage(row) {
+            this.$router.push({path:'/admin/boss/edit', query:{ id: row.id }});
         }
     },
     computed: {

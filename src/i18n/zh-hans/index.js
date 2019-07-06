@@ -94,6 +94,7 @@ export default {
         admin_flag: '管理员标示错误！',
         unauthorized: '抱歉！您没有权限！',
         login_failed: '登陆失败，用户名或者密码错误！',
+        freeze_user: '该用户已被冻结！无法操作！'
     },
 
     //Messages 信息类
