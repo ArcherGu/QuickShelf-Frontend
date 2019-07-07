@@ -1,5 +1,5 @@
-import { isArrayOrString } from "@/utils/tools.js";
-import { filterAsyncRouter } from "@/router/utils/tools.js";
+import { isArrayOrString } from "@/utils";
+import { filterAsyncRouter } from "@/router/utils";
 
 export default ({ router, store, Vue }) => {
     router.beforeEach((to, from, next) => {

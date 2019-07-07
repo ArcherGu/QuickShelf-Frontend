@@ -47,7 +47,7 @@
 <script>
 import RouterEditDialog from "./components/RouterEditDialog.vue";
 import { getAllRouters } from "@/api/admin/router_manage.js";
-import { isArray } from "@/utils/tools.js";
+import { isArray } from "@/utils";
 
 export default {
     name: 'RouterManage',
