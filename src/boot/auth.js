@@ -1,30 +1,29 @@
 import { isArrayOrString } from "@/utils";
-import { filterAsyncRouter } from "@/router/utils";
+import setRoutes from "@/router/utils";
 
 export default ({ router, store, Vue }) => {
     router.beforeEach((to, from, next) => {
-        if (to.meta.auth != false) {
+        if (to.meta.auth !== false) {
             if (!store.getters['auth/loggedIn']) {
-                router.push({
+                next({
                     path: '/login',
                     query: {
-                        redirect: to.fullPath
+                        redirect: to.path
                     }
                 });
             }
+            else if (!store.getters['auth/gotRouters']) {
+                store.dispatch('auth/getUserRouters').then(() => {
+                    setRoutes({ store, router });
+                    next({ ...to, replace: true });
+                }).catch((error) => {
+                    store.dispatch('auth/logout').then(() => {
+                        next();
+                    })
+                });
+            }
             else {
-                if (!store.getters['auth/gotRouters']) {
-                    store.dispatch('auth/getUserRouters').then(() => {
-                        let rawData = JSON.parse(JSON.stringify(store.getters['auth/myRouters']));
-                        let routersData = filterAsyncRouter(rawData);
-                        router.addRoutes(routersData);
-                        router.options.routes=store.getters['auth/myRouters'];
-                        next({ ...to, replace: true });
-                    });
-                }
-                else {
-                    next();
-                }
+                next();
             }
         }
         else {

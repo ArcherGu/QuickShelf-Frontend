@@ -18,3 +18,10 @@ export function filterAsyncRouter(asyncRouterMap) {
 
     return accessedRouters
 }
+
+export default ({ store, router }) => {
+    let rawData = JSON.parse(JSON.stringify(store.getters['auth/myRouters']));
+    let routersData = filterAsyncRouter(rawData);
+    router.addRoutes(routersData);
+    router.options.routes = store.getters['auth/myRouters'];
+}
