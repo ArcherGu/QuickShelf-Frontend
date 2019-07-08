@@ -6,7 +6,7 @@ export const AUTH_TYPE = {
     BOSS: 'boss'
 };
 
-export function doRegister (data, type) {
+export function doRegister(data, type) {
     return axiosInstance({
         url: `/auth/register/${type}`,
         method: 'post',
@@ -14,7 +14,7 @@ export function doRegister (data, type) {
     });
 }
 
-export function checkUsername (data) {
+export function checkUsername(data) {
     return axiosInstance({
         url: '/auth/check',
         method: 'post',
@@ -24,7 +24,7 @@ export function checkUsername (data) {
     });
 }
 
-export function doLogin (data) {
+export function doLogin(data) {
     return axiosInstance({
         url: '/auth/login',
         method: 'post',

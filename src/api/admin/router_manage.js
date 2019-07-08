@@ -1,6 +1,6 @@
 import { axiosInstance } from 'boot/axios';
 
-export function addOrEditRouter (data) {
+export function addOrEditRouter(data) {
     return axiosInstance({
         url: '/admin/router/addedit',
         method: 'post',
@@ -8,7 +8,7 @@ export function addOrEditRouter (data) {
     });
 }
 
-export function getAllRouters () {
+export function getAllRouters() {
     return axiosInstance({
         url: '/admin/router/all',
         method: 'get'

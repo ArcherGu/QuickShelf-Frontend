@@ -17,7 +17,12 @@ export default {
             boss: {}
         };
     },
-    mounted(){
+    created() {
+        getProduct(this.$route.query.id).then(response => {
+            this.productParam = response.data;
+        });
+    },
+    mounted() {
         this.getBossData();
     },
     methods: {

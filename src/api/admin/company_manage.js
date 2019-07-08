@@ -1,6 +1,6 @@
 import { axiosInstance } from 'boot/axios';
 
-export function addOrEditCompany (data) {
+export function addOrEditCompany(data) {
     return axiosInstance({
         url: '/admin/company/addedit',
         method: 'post',
@@ -8,19 +8,12 @@ export function addOrEditCompany (data) {
     });
 }
 
-export function checkCompanyName (data) {
+export function checkCompanyName(data) {
     return axiosInstance({
         url: '/admin/company/check',
         method: 'post',
         data: {
             name: data
         }
-    });
-}
-
-export function getAllBosses () {
-    return axiosInstance({
-        url: '/admin/boss/all',
-        method: 'get'
     });
 }

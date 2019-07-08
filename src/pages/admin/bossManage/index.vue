@@ -45,7 +45,7 @@
 
 <script>
 import BossAddDialog from "./components/BossAddDialog.vue";
-import { getAllBosses } from "@/api/admin/company_manage.js";
+import { getAllBosses } from "@/api/admin/boss_manage.js";
 import { isArray } from "@/utils";
 
 export default {
