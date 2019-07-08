@@ -17,3 +17,17 @@ export function checkCompanyName(data) {
         }
     });
 }
+
+export function getAllCompanies() {
+    return axiosInstance({
+        url: '/admin/company/all',
+        method: 'get'
+    });
+}
+
+export function getCompanyInfo(id) {
+    return axiosInstance({
+        url: `/admin/company/${id}`,
+        method: 'get'
+    });
+}

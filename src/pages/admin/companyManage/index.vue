@@ -29,29 +29,29 @@
                             color="primary"
                             size="xs"
                             :label="$t('operate.edit')"
-                            @click="goToEditPage(props.row)"
+                            @click="goEditPage(props.row)"
                         />
                     </q-td>
                 </template>
             </q-table>
         </q-card>
 
-        <boss-add-dialog 
+        <company-add-dialog 
             v-model="showDialog"
-            @refresh-table="getBossesData"
+            @refresh-table="getCompaniesData"
         />
     </div>
 </template>
 
 <script>
-import BossAddDialog from "./components/BossAddDialog.vue";
-import { getAllBosses } from "@/api/admin/boss_manage.js";
+import CompanyAddDialog from "./components/CompanyAddDialog.vue";
+import { getAllCompanies } from "@/api/admin/company_manage.js";
 import { isArray } from "@/utils";
 
 export default {
-    name: 'BossManage',
+    name: 'CompanyManage',
     components: {
-        BossAddDialog
+        CompanyAddDialog
     },
     data() {
         return {
@@ -65,31 +65,10 @@ export default {
                 },
                 columns:[
                     {
-                        name: 'real_name',
-                        label: this.$t('auth.real_name'),
-                        align: 'left',
-                        field: row => row.real_name + `${row.is_use? '' : '(被冻结)'}`,
-                        sortable: true
-                    },
-                    {
-                        name: 'username',
-                        label: this.$t('auth.username'),
-                        align: 'left',
-                        field: row => row.username,
-                        sortable: true
-                    },
-                    {
-                        name: 'phone_number',
-                        label: this.$t('auth.phone_number'),
-                        align: 'left',
-                        field: row => row.phone_number,
-                        sortable: true
-                    },
-                    {
                         name: 'company',
                         label: this.$t('company.self'),
                         align: 'left',
-                        field: row => row.company,
+                        field: row => row.company + `${row.company_is_use? '' : '(被冻结)'}`,
                         sortable: true
                     },
                     {
@@ -97,6 +76,20 @@ export default {
                         label: this.$t('shop.self') + this.$t('common.amount'),
                         align: 'left',
                         field: row => `${row.current_shop_num}/${row.max_shop_num}`,
+                        sortable: true
+                    },
+                    {
+                        name: 'real_name',
+                        label: this.$t('role.boss'),
+                        align: 'left',
+                        field: row => row.real_name + `(${row.username})${row.user_is_use? '' : '(被冻结)'}`,
+                        sortable: true
+                    },
+                    {
+                        name: 'phone_number',
+                        label: this.$t('auth.phone_number'),
+                        align: 'left',
+                        field: row => row.phone_number,
                         sortable: true
                     },
                     {
@@ -111,18 +104,18 @@ export default {
         };
     },
     mounted(){
-        this.getBossesData();
+        this.getCompaniesData();
     },
     methods: {
-        getBossesData() {
-            getAllBosses().then((response) => {
+        getCompaniesData() {
+            getAllCompanies().then((response) => {
                 if (isArray(response.data.result)) {
                     this.table.data = response.data.result;
                 }
             });
         },
-        goToEditPage(row) {
-            this.$router.push({path:'/admin/boss/edit', query:{ id: row.id }});
+        goEditPage(row) {
+            this.$router.push({path:'/admin/company/edit', query:{ id: row.id }});
         }
     },
     computed: {

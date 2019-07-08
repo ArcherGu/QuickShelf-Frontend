@@ -49,7 +49,7 @@ export default {
         admin: '系统管理',
         admin_home: '控制台',
         router_manage: '路由管理',
-        boss_manage: '老板管理'
+        company_manage: '公司管理'
     },
 
     //Admin 管理员类

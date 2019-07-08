@@ -6,7 +6,7 @@
     >
 
         <q-card style="width: 500px; max-width: 80vw;">
-            <q-form @submit="addUser">
+            <q-form @submit="addBoss">
                 <q-card-section>
                     <span
                         class="text-h6"
@@ -17,14 +17,41 @@
 
                 <q-card-section>
                     <q-input
+                        v-model="companyData.name"
+                        @input="check.bLoading = true"
+                        @blur="checkCompanyName"
+                        :label="$t('company.self')"
+                        :rules="[ 
+                            val => val && val.length > 0 || $t('errors.input_required', { item: $t('company.self') }),
+                        ]"
+                        :error="!check.bNameCheck"
+                        :error-message="$t('errors.input_exist', { item: $t('company.self')})"
+                        lazy-rules
+                        outlined
+                        dense
+                    />
+                    <div>
+                        <span v-text="$t('common.max') + $t('shop.self') + $t('common.amount') + ': '"></span>
+                        <q-badge color="green" :label="companyData.maxShopNum" />
+                        <q-slider
+                            v-model="companyData.maxShopNum"
+                            :min="1"
+                            :max="20"
+                            :step="1"
+                            color="light-green"
+                        />
+                    </div>
+                    <hr>
+                    <q-input
                         v-model="userData.username"
                         :loading="check.aLoading"
-                        @blur="checkUsername"
+                        @blur="checkBossUsername"
                         :label="$t('auth.username')"
                         :rules="[ val => val && val.length > 0 || $t('errors.input_required', { item: $t('auth.username') })]"
                         :error="!check.aNameCheck"
                         :error-message="$t('errors.input_exist', { item: $t('auth.username')})"
                         lazy-rules
+                        class="q-mt-md"
                         outlined
                         dense
                     />
@@ -71,34 +98,9 @@
                         outlined
                         dense
                     />
-                    <q-input
-                        v-model="companyData.name"
-                        @input="check.bLoading = true"
-                        @blur="checkCompanyName"
-                        :label="$t('company.self')"
-                        :rules="[ 
-                            val => val && val.length > 0 || $t('errors.input_required', { item: $t('company.self') }),
-                        ]"
-                        :error="!check.bNameCheck"
-                        :error-message="$t('errors.input_exist', { item: $t('company.self')})"
-                        lazy-rules
-                        outlined
-                        dense
-                    />
-                    <div>
-                        <span v-text="$t('common.max') + $t('shop.self') + $t('common.amount') + ': '"></span>
-                        <q-badge color="green" :label="companyData.maxShopNum" />
-                        <q-slider
-                            v-model="companyData.maxShopNum"
-                            :min="1"
-                            :max="20"
-                            :step="1"
-                            color="light-green"
-                        />
-                    </div>
                     <hr>
                     <q-input
-                        v-model="userData.adminFlag"
+                        v-model="companyData.adminFlag"
                         :label="$t('role.admin') + $t('common.flag')"
                         :rules="[ 
                             val => val && val.length > 0 || $t('errors.input_required', { item: $t('role.admin') + $t('common.flag') }),
@@ -112,7 +114,7 @@
                 </q-card-section>
                 <q-card-actions align="right">
                     <q-btn
-                        :label="$t('operate.add') + $t('role.boss')"
+                        :label="$t('operate.add') + $t('company.self')"
                         type="submit"
                         color="positive"
                     />
@@ -140,7 +142,6 @@ const defaultUserData = {
     phoneNumber: '',
     password: '',
     confirmPassword: '',
-    adminFlag: '',
 };
 
 const defaultCompanyData = {
@@ -148,11 +149,11 @@ const defaultCompanyData = {
     bossId: 0,
     name: '',
     maxShopNum: 1,
-    isUse: 1
+    adminFlag: '',
 };
 
 export default {
-    name: 'BossAddDialog',
+    name: 'CompanyAddDialog',
     props: {
         show: {
             type: Boolean,
@@ -180,7 +181,7 @@ export default {
 
     },
     methods: {
-        addUser() {
+        addBoss() {
             doRegister(this.userData, AUTH_TYPE.BOSS).then((response) => {
                 this.addCompany(response.data.result);
             }).catch((error) => {
@@ -209,7 +210,7 @@ export default {
             })
         },
 
-        checkUsername() {
+        checkBossUsername() {
             this.check.aLoading = true;
             checkUsername(this.userData.username).then((response) => {
                 if (response.data.result == "success") {

@@ -1,14 +1,14 @@
 <template>
     <div>
-        {{ boss }}
+
     </div>
 </template>
 
 <script>
-import { getAllBosses } from "@/api/admin/company_manage.js";
+import { getCompanyInfo } from "@/api/admin/company_manage.js";
 
 export default {
-    name: 'BossEdit',
+    name: 'CompanyEdit',
     components: {
 
     },
@@ -18,17 +18,15 @@ export default {
         };
     },
     created() {
-        getProduct(this.$route.query.id).then(response => {
-            this.productParam = response.data;
+        getCompanyInfo(this.$route.query.id).then(response => {
+            console.log(response.data.result);
         });
     },
     mounted() {
-        this.getBossData();
+
     },
     methods: {
-        getBossData() {
 
-        }
     },
     computed: {
 
