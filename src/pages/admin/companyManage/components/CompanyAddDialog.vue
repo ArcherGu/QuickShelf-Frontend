@@ -134,7 +134,7 @@
 
 <script>
 import { doRegister, checkUsername, AUTH_TYPE } from "@/api/auth.js";
-import { addOrEditCompany, checkCompanyName } from "@/api/admin/company_manage.js";
+import { addOrEditCompany, checkCompanyName } from "@/api/admin/company.js";
 
 const defaultUserData = {
     username: '',

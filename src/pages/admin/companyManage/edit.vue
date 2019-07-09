@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { getCompanyInfo } from "@/api/admin/company_manage.js";
+import { getCompanyInfo } from "@/api/admin/company.js";
 
 export default {
     name: 'CompanyEdit',

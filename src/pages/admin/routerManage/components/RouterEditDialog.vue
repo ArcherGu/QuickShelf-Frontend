@@ -155,7 +155,7 @@
 </template>
 
 <script>
-import { addOrEditRouter } from "@/api/admin/router_manage.js";
+import { addOrEditRouter } from "@/api/admin/routers.js";
 import { getAllRoles } from "@/api/role.js";
 
 const defaultEditData = {
