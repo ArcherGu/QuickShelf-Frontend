@@ -28,6 +28,13 @@ export default {
         self: '店铺'
     },
 
+    district: {
+        self: '地区',
+        province: '省/直辖市',
+        city: '市/区',
+        area: '区/县'
+    },
+
     //Auth 用户类
     auth: {
         username: '用户名',

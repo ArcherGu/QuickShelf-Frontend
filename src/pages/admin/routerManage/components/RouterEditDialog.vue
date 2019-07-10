@@ -83,7 +83,6 @@
                         @input="setLimit"
                         :label="$t('admin.router.belongTo')"
                         :options="selectRouters"
-
                     />
                     <div class="q-mt-md">
                         <span v-text="$t('admin.router.sort')"></span>

@@ -35,14 +35,14 @@ export function doLogin(data) {
     });
 }
 
-export function getUser (data) {
+export function getUser(data) {
     return axiosInstance({
         url: '/auth/user',
         method: 'get'
     });
 }
 
-export function getSelfRouters () {
+export function getSelfRouters() {
     return axiosInstance({
         url: '/auth/routers',
         method: 'get'
