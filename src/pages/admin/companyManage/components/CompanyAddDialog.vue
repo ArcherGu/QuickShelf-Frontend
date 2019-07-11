@@ -30,7 +30,15 @@
                         outlined
                         dense
                     />
-                    <div>
+                    <dist-picker v-model="companyDist"></dist-picker>
+                    <q-input
+                        v-model="companyData.address"
+                        :label="$t('district.address')"
+                        class="q-mt-md"
+                        outlined
+                        dense
+                    />
+                    <div class="q-mt-md">
                         <span v-text="$t('common.max') + $t('shop.self') + $t('common.amount') + ': '"></span>
                         <q-badge color="green" :label="companyData.maxShopNum" />
                         <q-slider
@@ -133,6 +141,7 @@
 </template>
 
 <script>
+import DistPicker from "@/components/DistPicker";
 import { doRegister, checkUsername, AUTH_TYPE } from "@/api/auth.js";
 import { addOrEditCompany, checkCompanyName } from "@/api/admin/company.js";
 
@@ -144,16 +153,27 @@ const defaultUserData = {
     confirmPassword: '',
 };
 
+const defaultCompanyDist = {
+    province: '',
+    city: '',
+    area: '',
+};
+
 const defaultCompanyData = {
     id: 0,
     bossId: 0,
     name: '',
+    ...defaultCompanyDist,
+    address: '',
     maxShopNum: 1,
     adminFlag: '',
 };
 
 export default {
     name: 'CompanyAddDialog',
+    components: {
+        DistPicker
+    },
     props: {
         show: {
             type: Boolean,
@@ -165,6 +185,7 @@ export default {
             myShow: this.show,
             userData: defaultUserData,
             companyData: defaultCompanyData,
+            companyDist: defaultCompanyDist,
             check: {
                 aNameCheck: true, //Username
                 bNameCheck: true, //Company Name
@@ -242,6 +263,14 @@ export default {
 
     },
     watch: {
+        companyDist: {
+            handler: function(newVal) {
+                this.companyData.province = newVal.province;
+                this.companyData.city = newVal.city;
+                this.companyData.area = newVal.area;
+            },
+            deep: true
+        },
         show(newVal) {
             this.myShow = newVal;
         },

@@ -32,7 +32,8 @@ export default {
         self: '地区',
         province: '省/直辖市',
         city: '市/区',
-        area: '区/县'
+        area: '区/县',
+        address: '详细地址'
     },
 
     //Auth 用户类

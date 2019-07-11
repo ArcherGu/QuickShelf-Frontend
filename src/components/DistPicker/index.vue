@@ -1,11 +1,12 @@
 <template>
-    <div>
+    <div class="row q-gutter-sm">
         <q-select
             v-model="selfResult.province"
             emit-value
             map-options
             outlined
             dense
+            class="col"
             @input="changeProvince"
             :label="$t('district.province')"
             :options="provinces"
@@ -16,6 +17,7 @@
             map-options
             outlined
             dense
+            class="col"
             @input="changeCity"
             :label="$t('district.city')"
             :options="cities"
@@ -26,6 +28,7 @@
             map-options
             outlined
             dense
+            class="col"
             :label="$t('district.area')"
             :options="areas"
         />
