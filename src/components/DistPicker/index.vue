@@ -21,19 +21,19 @@
             :options="cities"
         />
         <q-select
-            v-model="selfResult.district"
+            v-model="selfResult.area"
             emit-value
             map-options
             outlined
             dense
             :label="$t('district.area')"
-            :options="districts"
+            :options="areas"
         />
     </div>
 </template>
 
 <script>
-import { getAllProvinces, getCitiesByProvince, getDistrictsByCity } from "@/api/district.js";
+import { getAllProvinces, getCitiesByProvince, getAreasByCity } from "@/api/district.js";
 import { i18nInstance } from 'boot/i18n';
 import { isArray } from "@/utils";
 
@@ -51,7 +51,7 @@ export default {
                 return {
                     province: '',
                     city: '',
-                    district: '',
+                    area: '',
                 }
             }
         },
@@ -61,7 +61,7 @@ export default {
             selfResult: this.result,
             provinces: [],
             cities: [],
-            districts: [],
+            areas: [],
         } 
     },
     model: {
@@ -76,8 +76,8 @@ export default {
         if (this.selfResult.city) {
             this.getCities();
         }
-        if (this.selfResult.district) {
-            this.getDistricts();
+        if (this.selfResult.area) {
+            this.getAreas();
         }
     },
     methods: {
@@ -88,8 +88,8 @@ export default {
         },
 
         changeCity() {
-            this.selfResult.district = '';
-            this.getDistricts();
+            this.selfResult.area = '';
+            this.getAreas();
         },
 
         getProvinces() {
@@ -120,7 +120,7 @@ export default {
                         });
                         if (this.cities.length == 0) {
                             this.cities.push(emptyOption);
-                            this.districts.push(emptyOption);
+                            this.areas.push(emptyOption);
                         }
                     }
                 }).catch((error) => {
@@ -129,19 +129,19 @@ export default {
             }
         },
 
-        getDistricts() {
-            this.districts = [];
+        getAreas() {
+            this.areas = [];
             if (this.selfResult.city) {
-                getDistrictsByCity(this.selfResult.city).then((response) => {
+                getAreasByCity(this.selfResult.city).then((response) => {
                     if (isArray(response.data.result)) {
                         response.data.result.forEach((it) => {
-                            this.districts.push({
+                            this.areas.push({
                                 label: it.name,
                                 value: it.adcode
                             });
                         });
-                        if (this.districts.length == 0) {
-                            this.districts.push(emptyOption);
+                        if (this.areas.length == 0) {
+                            this.areas.push(emptyOption);
                         }
                     }
                 }).catch((error) => {

@@ -2,21 +2,21 @@ import { axiosInstance } from 'boot/axios';
 
 export function getAllProvinces() {
     return axiosInstance({
-        url: '/districts/province',
+        url: '/district/province',
         method: 'get'
     });
 }
 
 export function getCitiesByProvince(adcode) {
     return axiosInstance({
-        url: `/districts/belong/${adcode}/city`,
+        url: `/district/city/${adcode}`,
         method: 'get'
     });
 }
 
-export function getDistrictsByCity(adcode) {
+export function getAreasByCity(adcode) {
     return axiosInstance({
-        url: `/districts/belong/${adcode}/district`,
+        url: `/district/area/${adcode}`,
         method: 'get'
     });
 }

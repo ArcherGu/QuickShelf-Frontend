@@ -19,7 +19,7 @@ export default {
             address: {
                 province: 330000,
                 city: 330200,
-                district: 330281
+                area: 330281
             }
         };
     },
