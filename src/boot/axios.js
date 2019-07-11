@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Notify } from 'quasar';
-import { i18nInstance } from 'boot/i18n';
+import { i18nInstance } from '@/boot/i18n';
 
 const axiosInstance = axios.create({});
 

@@ -1,6 +1,65 @@
 <template>
     <div>
-        <dist-picker v-model="address"></dist-picker>
+        <q-card>
+            <div class="row">
+                <div class="col">
+                    <q-form>
+                        <q-card-section>
+                            <span
+                                class="text-h6"
+                                v-text="$t('company.self')"
+                            >
+                            </span>
+                        </q-card-section>
+
+                        <q-card-section>
+
+                        </q-card-section>
+
+                        <q-card-actions align="right">
+
+                        </q-card-actions>
+                    </q-form>
+                </div>
+                <q-separator vertical inset />
+                <div class="col">
+                    <q-form>
+                        <q-card-section>
+                            <span
+                                class="text-h6"
+                                v-text="$t('role.boss')"
+                            >
+                            </span>
+                        </q-card-section>
+
+                        <q-card-section>
+
+                        </q-card-section>
+                        <q-card-actions align="right">
+
+                        </q-card-actions>
+                    </q-form>
+                </div>
+            </div>
+        </q-card>
+        <q-card class="q-mt-md">
+            <q-form>
+                <q-card-section>
+                    <span
+                        class="text-h6"
+                        v-text="$t('operate.add')"
+                    >
+                    </span>
+                </q-card-section>
+
+                <q-card-section>
+
+                </q-card-section>
+                <q-card-actions align="right">
+
+                </q-card-actions>
+            </q-form>
+        </q-card>
     </div>
 </template>
 
@@ -16,16 +75,11 @@ export default {
     data() {
         return {
             boss: {},
-            address: {
-                province: 330000,
-                city: 330200,
-                area: 330281
-            }
         };
     },
     created() {
-        getCompanyInfo(this.$route.query.id).then(response => {
-            //console.log(response.data.result);
+        getCompanyInfo(this.$route.params.company_id).then(response => {
+            console.log(response.data.result);
         });
     },
     mounted() {
@@ -38,12 +92,7 @@ export default {
 
     },
     watch: {
-        address: {
-            handler: function(newVal) {
-                console.log(newVal);
-            },
-            deep: true
-        },
+
     }
 }
 </script>

@@ -20,7 +20,8 @@ export default {
         max: '最大',
         min: '最小',
         amount: '数量',
-        flag: '标识'
+        flag: '标识',
+        telephone: '联系电话'
     },
 
     //Shop 店铺类
@@ -94,6 +95,7 @@ export default {
         input_required: '* 请输入{item}',
         input_available: '* 请输入有效的{item}',
         input_exist: '{item}已经存在',
+        input_telephone: '请输入正确的手机号码或电话号码；例如:13916752109或0712-3614072',
         select_required: '* 必须选择一个{item}',
         diff_pwd: '两次密码不一致！',
         easy_pwd: '密码长度必须大于等于{num}位',

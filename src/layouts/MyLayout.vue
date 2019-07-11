@@ -95,7 +95,7 @@ export default {
 
 <style scoped>
     .app-container {
-        padding: 20px;
+        padding: 30px;
     }
     .logo {
         padding: 18px 0;

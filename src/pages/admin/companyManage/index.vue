@@ -115,7 +115,8 @@ export default {
             });
         },
         goEditPage(row) {
-            this.$router.push({path:'/admin/company/edit', query:{ id: row.id }});
+            //this.$router.push({path:'/admin/company/edit', query:{ id: row.id }});
+            this.$router.push({ path:`/admin/company/edit/${row.id }` });
         }
     },
     computed: {

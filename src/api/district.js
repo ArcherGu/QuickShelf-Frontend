@@ -1,4 +1,4 @@
-import { axiosInstance } from 'boot/axios';
+import { axiosInstance } from '@/boot/axios';
 
 export function getAllProvinces() {
     return axiosInstance({

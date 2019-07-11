@@ -38,7 +38,17 @@
                         outlined
                         dense
                     />
-                    <div class="q-mt-md">
+                    <q-input
+                        v-model="companyData.phoneNumber"
+                        :label="$t('common.telephone')"
+                        :rules="[ val => verifyPhoneNumber(val) ]"
+                        type="tel"
+                        class="q-mt-md"
+                        lazy-rules
+                        outlined
+                        dense
+                    />
+                    <div>
                         <span v-text="$t('common.max') + $t('shop.self') + $t('common.amount') + ': '"></span>
                         <q-badge color="green" :label="companyData.maxShopNum" />
                         <q-slider
@@ -98,10 +108,8 @@
                     <q-input
                         v-model="userData.phoneNumber"
                         :label="$t('auth.phone_number')"
-                        :rules="[ 
-                            val => val && val.length > 0 || $t('errors.input_required', { item: $t('auth.phone_number') }),
-                            val => /^1(3|4|5|6|7|8|9)\d{9}$/.test(val) || $t('errors.input_available', { item: $t('auth.phone_number') })
-                        ]"
+                        :rules="[ val => verifyPhoneNumber(val) ]"
+                        type="tel"
                         lazy-rules
                         outlined
                         dense
@@ -144,6 +152,7 @@
 import DistPicker from "@/components/DistPicker";
 import { doRegister, checkUsername, AUTH_TYPE } from "@/api/auth.js";
 import { addOrEditCompany, checkCompanyName } from "@/api/admin/company.js";
+import { verifyPhoneNumber } from "@/utils";
 
 const defaultUserData = {
     username: '',
@@ -165,6 +174,7 @@ const defaultCompanyData = {
     name: '',
     ...defaultCompanyDist,
     address: '',
+    phoneNumber: '',
     maxShopNum: 1,
     adminFlag: '',
 };
@@ -257,7 +267,9 @@ export default {
             }).finally(() => {
                 this.check.bLoading = false;
             })
-        }
+        },
+
+        verifyPhoneNumber,
     },
     computed: {
 
