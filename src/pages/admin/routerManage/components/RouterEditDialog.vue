@@ -199,7 +199,7 @@ export default {
             myShow: this.show,
             roles: [],
             disableRoles: [],
-            editData: defaultEditData,
+            editData: { ...defaultEditData },
             details: {
                 title: this.$t('operate.add') + this.$t('admin.router.self'),
                 saveBtn: {
@@ -220,7 +220,7 @@ export default {
         save() {
             addOrEditRouter(this.editData).then((response) => {
                 this.$refs.addEditDialog.hide();
-                this.editData = defaultEditData;
+                this.editData = { ...defaultEditData };
                 this.$emit('refresh-table');
             }).catch((error) => {
                 console.log(error);
@@ -264,7 +264,7 @@ export default {
     },
     computed: {
         selectRouters() {
-            let selectData = [defaultSelectRouterOption];
+            let selectData = [{ ...defaultSelectRouterOption }];
             this.allRouters.forEach((it) => {
                 selectData.push({
                     label: `${it.name} (${it.path})`,
@@ -295,7 +295,7 @@ export default {
                 };
             }
             else {
-                this.editData = defaultEditData;
+                this.editData = { ...defaultEditData };
             }
             this.setLimit();
         },

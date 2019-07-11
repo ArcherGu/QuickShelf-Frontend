@@ -108,7 +108,10 @@
                     <q-input
                         v-model="userData.phoneNumber"
                         :label="$t('auth.phone_number')"
-                        :rules="[ val => verifyPhoneNumber(val) ]"
+                        :rules="[
+                            val => val && val.length > 0 || $t('errors.input_required', { item: $t('auth.phone_number') }),
+                            val => verifyPhoneNumber(val) 
+                        ]"
                         type="tel"
                         lazy-rules
                         outlined
@@ -193,9 +196,9 @@ export default {
     data() {
         return {
             myShow: this.show,
-            userData: defaultUserData,
-            companyData: defaultCompanyData,
-            companyDist: defaultCompanyDist,
+            userData: { ...defaultUserData },
+            companyData: { ...defaultCompanyData },
+            companyDist: { ...defaultCompanyDist },
             check: {
                 aNameCheck: true, //Username
                 bNameCheck: true, //Company Name
@@ -210,7 +213,7 @@ export default {
     },
     mounted() {
 
-    },
+    }, 
     methods: {
         addBoss() {
             doRegister(this.userData, AUTH_TYPE.BOSS).then((response) => {
@@ -227,8 +230,9 @@ export default {
         addCompany(bossId) {
             this.companyData.bossId = bossId;
             addOrEditCompany(this.companyData).then((response) => {
-                this.userData = defaultUserData;
-                this.companyData = defaultCompanyData;
+                this.userData = { ...defaultUserData };
+                this.companyData = { ...defaultCompanyData };
+                this.companyDist = { ...defaultCompanyDist };
 
                 this.$refs.addDialog.hide();
                 this.$emit('refresh-table');

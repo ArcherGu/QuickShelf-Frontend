@@ -11,12 +11,12 @@ export function filterAsyncRouter(asyncRouterMap) {
             route.component = _import(route.component);
         }
         if (route.children && route.children.length) {
-            route.children = filterAsyncRouter(route.children)
+            route.children = filterAsyncRouter(route.children);
         }
-        return true
+        return true;
     })
 
-    return accessedRouters
+    return accessedRouters;
 }
 
 export default ({ store, router }) => {
