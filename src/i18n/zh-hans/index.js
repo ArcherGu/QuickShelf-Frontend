@@ -11,6 +11,7 @@ export default {
         save: '保存',
         confirm: '确认',
         cancel: '取消',
+        detail: '详情'
     },
 
     //Common 公共类

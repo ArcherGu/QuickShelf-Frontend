@@ -28,7 +28,7 @@
                             class="q-mr-md"
                             color="primary"
                             size="xs"
-                            :label="$t('operate.edit')"
+                            :label="$t('operate.detail')"
                             @click="goEditPage(props.row)"
                         />
                     </q-td>
@@ -65,24 +65,24 @@ export default {
                 },
                 columns:[
                     {
-                        name: 'company',
+                        name: 'name',
                         label: this.$t('company.self'),
                         align: 'left',
-                        field: row => row.company + `${row.company_is_use? '' : '(被冻结)'}`,
+                        field: row => row.name + `${row.is_use? '' : '(被冻结)'}`,
                         sortable: true
                     },
                     {
-                        name: 'current_shop_num',
+                        name: 'currentShopNum',
                         label: this.$t('shop.self') + this.$t('common.amount'),
                         align: 'left',
-                        field: row => `${row.current_shop_num}/${row.max_shop_num}`,
+                        field: row => `${row.currentShopNum}/${row.max_shop_num}`,
                         sortable: true
                     },
                     {
-                        name: 'real_name',
+                        name: 'bossName',
                         label: this.$t('role.boss'),
                         align: 'left',
-                        field: row => row.real_name + `(${row.username})${row.user_is_use? '' : '(被冻结)'}`,
+                        field: row => row.bossName,
                         sortable: true
                     },
                     {

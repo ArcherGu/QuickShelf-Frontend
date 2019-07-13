@@ -1,86 +1,34 @@
 <template>
     <div>
-        <q-card>
-            <div class="row">
-                <div class="col">
-                    <q-form>
-                        <q-card-section>
-                            <span
-                                class="text-h6"
-                                v-text="$t('company.self')"
-                            >
-                            </span>
-                        </q-card-section>
-
-                        <q-card-section>
-
-                        </q-card-section>
-
-                        <q-card-actions align="right">
-
-                        </q-card-actions>
-                    </q-form>
-                </div>
-                <q-separator vertical inset />
-                <div class="col">
-                    <q-form>
-                        <q-card-section>
-                            <span
-                                class="text-h6"
-                                v-text="$t('role.boss')"
-                            >
-                            </span>
-                        </q-card-section>
-
-                        <q-card-section>
-
-                        </q-card-section>
-                        <q-card-actions align="right">
-
-                        </q-card-actions>
-                    </q-form>
-                </div>
+        <div class="row q-col-gutter-md">
+            <div class="col-xs-12 col-sm-6">
+                <company-edit-form :company-id="companyId" style="height: 100%"></company-edit-form>
             </div>
-        </q-card>
-        <q-card class="q-mt-md">
-            <q-form>
-                <q-card-section>
-                    <span
-                        class="text-h6"
-                        v-text="$t('operate.add')"
-                    >
-                    </span>
-                </q-card-section>
-
-                <q-card-section>
-
-                </q-card-section>
-                <q-card-actions align="right">
-
-                </q-card-actions>
-            </q-form>
-        </q-card>
+            <div class="col-xs-12 col-sm-6">
+                <boss-edit-form :boss-id="bossId" style="height: 100%"></boss-edit-form>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
-import DistPicker from "@/components/DistPicker";
-import { getCompanyInfo } from "@/api/admin/company.js";
+import CompanyEditForm from "./components/CompanyEditForm.vue";
+import BossEditForm from "./components/BossEditForm.vue";
 
 export default {
     name: 'CompanyEdit',
     components: {
-        DistPicker
+        CompanyEditForm,
+        BossEditForm,
     },
     data() {
         return {
-            boss: {},
+            companyId: this.$route.params.company_id,
+            bossId: "0",
         };
     },
     created() {
-        getCompanyInfo(this.$route.params.company_id).then(response => {
-            console.log(response.data.result);
-        });
+
     },
     mounted() {
 
@@ -96,3 +44,6 @@ export default {
     }
 }
 </script>
+<style>
+
+</style>

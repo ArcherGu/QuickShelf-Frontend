@@ -10,6 +10,7 @@
             @input="changeProvince"
             :label="$t('district.province')"
             :options="provinces"
+            :readonly="onlyView"
         />
         <q-select
             v-model="selfResult.city"
@@ -21,6 +22,7 @@
             @input="changeCity"
             :label="$t('district.city')"
             :options="cities"
+            :readonly="onlyView"
         />
         <q-select
             v-model="selfResult.area"
@@ -31,6 +33,7 @@
             class="col"
             :label="$t('district.area')"
             :options="areas"
+            :readonly="onlyView"
         />
     </div>
 </template>
@@ -58,6 +61,10 @@ export default {
                 }
             }
         },
+        onlyView: {
+            type: Boolean,
+            default: false
+        }
     },
     data() { 
         return {

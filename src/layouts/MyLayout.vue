@@ -58,7 +58,9 @@
 
         <q-page-container>
             <div class="app-container">
-                <router-view />
+                <transition name="fade" mode="out-in">
+                    <router-view />
+                </transition>
             </div>
         </q-page-container>
     </q-layout>
@@ -133,5 +135,17 @@ export default {
         .sidebar-mini-btn {
             display: inline;
         }
+    }
+
+    .fade-enter-active,
+    .fade-leave-active {
+        transition: opacity 0.2s;
+    }
+
+    /* .fade-leave-active in <2.1.8 */
+    .fade-enter,
+    .fade-leave-to
+    {
+        opacity: 0;
     }
 </style>

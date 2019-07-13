@@ -72,7 +72,8 @@ module.exports = function (ctx) {
                 'QScrollArea',
                 'QImg',
                 'QDialog',
-                'QExpansionItem'
+                'QExpansionItem',
+                'QCircularProgress'
             ],
 
             directives: [
