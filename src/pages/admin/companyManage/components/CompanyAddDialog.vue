@@ -39,7 +39,7 @@
                         dense
                     />
                     <q-input
-                        v-model="companyData.phoneNumber"
+                        v-model="companyData.phone_number"
                         :label="$t('common.telephone')"
                         :rules="[ val => verifyPhoneNumber(val) ]"
                         type="tel"
@@ -50,9 +50,9 @@
                     />
                     <div>
                         <span v-text="$t('common.max') + $t('shop.self') + $t('common.amount') + ': '"></span>
-                        <q-badge color="green" :label="companyData.maxShopNum" />
+                        <q-badge color="green" :label="companyData.max_shop_num" />
                         <q-slider
-                            v-model="companyData.maxShopNum"
+                            v-model="companyData.max_shop_num"
                             :min="1"
                             :max="20"
                             :step="1"
@@ -173,12 +173,12 @@ const defaultCompanyDist = {
 
 const defaultCompanyData = {
     id: 0,
-    bossId: 0,
+    boss_id: 0,
     name: '',
     ...defaultCompanyDist,
     address: '',
-    phoneNumber: '',
-    maxShopNum: 1,
+    phone_number: '',
+    max_shop_num: 1,
     adminFlag: '',
 };
 
@@ -228,7 +228,7 @@ export default {
         },
 
         addCompany(bossId) {
-            this.companyData.bossId = bossId;
+            this.companyData.boss_id = bossId;
             addOrEditCompany(this.companyData).then((response) => {
                 this.userData = { ...defaultUserData };
                 this.companyData = { ...defaultCompanyData };
