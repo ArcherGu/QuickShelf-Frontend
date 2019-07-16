@@ -109,8 +109,11 @@ export default {
             isEdit: false
         }
     },
-    mounted() {
+    created() {
         this.$bus.$on('get-boss-id-from-company', this.getBossInfo);
+    },
+    mounted() {
+
     },
     beforeDestroy() {
         this.$bus.$off('get-boss-id-from-company', this.getBossInfo);
