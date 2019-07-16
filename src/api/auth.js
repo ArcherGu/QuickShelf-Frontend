@@ -37,7 +37,14 @@ export function doLogin(data) {
 
 export function getUser(data) {
     return axiosInstance({
-        url: '/auth/user',
+        url: '/auth/user/self',
+        method: 'get'
+    });
+}
+
+export function getUserById(id, type) {
+    return axiosInstance({
+        url: `/auth/user/${type}/${id}`,
         method: 'get'
     });
 }

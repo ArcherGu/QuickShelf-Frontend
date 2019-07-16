@@ -14,6 +14,7 @@ module.exports = function (ctx) {
             'axios',
             'vuelidate',
             'auth',
+            'bus'
         ],
 
         preFetch: true,

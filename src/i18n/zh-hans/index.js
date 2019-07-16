@@ -11,7 +11,8 @@ export default {
         save: '保存',
         confirm: '确认',
         cancel: '取消',
-        detail: '详情'
+        detail: '详情',
+        modify: '修改'
     },
 
     //Common 公共类
@@ -22,7 +23,16 @@ export default {
         min: '最小',
         amount: '数量',
         flag: '标识',
-        telephone: '联系电话'
+        telephone: '联系电话',
+        info: '信息'
+    },
+
+    state: {
+        self: '状态',
+        success: '成功',
+        fail: '失败',
+        enable: '正常',
+        disable: '禁用'
     },
 
     //Shop 店铺类
@@ -47,6 +57,7 @@ export default {
         logining: "登陆中...",
         remember_me: "记住我",
         real_name: '真实姓名',
+        name: '姓名',
         phone_number: '手机号码',
     },
 

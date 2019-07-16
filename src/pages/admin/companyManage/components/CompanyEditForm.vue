@@ -50,7 +50,7 @@
                 />
             </q-card-section>
             <q-card-section v-else class="row">
-                <div class="col-xs-12 col-sm-4 column items-center">
+                <div class="col-xs-12 col-sm-12 col-md-4 column items-center">
                     <q-circular-progress
                         show-value
                         class="text-light-blue q-ma-md"
@@ -65,9 +65,9 @@
                         {{ showData.currentShopNum }}/{{ showData.max_shop_num }}
                     </q-circular-progress>
                 </div>
-                <div class="col-xs-12 col-sm-8">
+                <div class="col-xs-12 col-sm-12 col-md-8">
                     <q-list>
-                        <q-item>
+                        <q-item class="row">
                             <q-item-section class="col-4">
                                 <span class="text-subtitle1 text-weight-bold">
                                     <q-icon name="local_phone" />
@@ -81,7 +81,7 @@
                                 </span>
                             </q-item-section>
                         </q-item>
-                        <q-item>
+                        <q-item class="row">
                             <q-item-section class="col-4">
                                 <span class="text-subtitle1 text-weight-bold">
                                     <q-icon name="home" />
@@ -184,6 +184,7 @@ export default {
                     city: this.editData.city,
                     area: this.editData.area,
                 };
+                this.$bus.$emit('get-boss-id-from-company', this.editData.boss_id);
                 this.getDistrict();
             })
         },
@@ -232,7 +233,7 @@ export default {
                 this.editData.area = newVal.area;
             },
             deep: true
-        },
+        }
     }
 }
 

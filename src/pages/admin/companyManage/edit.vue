@@ -2,10 +2,14 @@
     <div>
         <div class="row q-col-gutter-md">
             <div class="col-xs-12 col-sm-6">
-                <company-edit-form :company-id="companyId" style="height: 100%"></company-edit-form>
+                <company-edit-form
+                    :company-id="companyId"
+                    style="height: 100%"
+                >
+                </company-edit-form>
             </div>
             <div class="col-xs-12 col-sm-6">
-                <boss-edit-form :boss-id="bossId" style="height: 100%"></boss-edit-form>
+                <boss-edit-form style="height: 100%"></boss-edit-form>
             </div>
         </div>
     </div>
@@ -24,7 +28,6 @@ export default {
     data() {
         return {
             companyId: this.$route.params.company_id,
-            bossId: "0",
         };
     },
     created() {
@@ -45,5 +48,4 @@ export default {
 }
 </script>
 <style>
-
 </style>
