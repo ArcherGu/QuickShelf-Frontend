@@ -98,7 +98,7 @@
                         dense
                     />
                     <q-input
-                        v-model="userData.realName"
+                        v-model="userData.real_name"
                         :label="$t('auth.real_name')"
                         :rules="[ val => val && val.length > 0 || $t('errors.input_required', { item: $t('auth.real_name') })]"
                         lazy-rules
@@ -106,7 +106,7 @@
                         dense
                     />
                     <q-input
-                        v-model="userData.phoneNumber"
+                        v-model="userData.phone_number"
                         :label="$t('auth.phone_number')"
                         :rules="[
                             val => val && val.length > 0 || $t('errors.input_required', { item: $t('auth.phone_number') }),
@@ -159,8 +159,8 @@ import { verifyPhoneNumber } from "@/utils";
 
 const defaultUserData = {
     username: '',
-    realName: '',
-    phoneNumber: '',
+    real_name: '',
+    phone_number: '',
     password: '',
     confirmPassword: '',
 };

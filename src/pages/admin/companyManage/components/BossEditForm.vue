@@ -16,7 +16,29 @@
                     />
                 </q-toolbar>
             </q-card-section>
-            <q-card-section class="row">
+            <q-card-section v-if="isEdit">
+                <q-input
+                    v-model="editData.real_name"
+                    :label="$t('auth.real_name')"
+                    :rules="[ val => val && val.length > 0 || $t('errors.input_required', { item: $t('auth.real_name') })]"
+                    lazy-rules
+                    outlined
+                    dense
+                />
+                <q-input
+                    v-model="editData.phone_number"
+                    :label="$t('auth.phone_number')"
+                    :rules="[
+                        val => val && val.length > 0 || $t('errors.input_required', { item: $t('auth.phone_number') }),
+                        val => verifyPhoneNumber(val) 
+                    ]"
+                    type="tel"
+                    lazy-rules
+                    outlined
+                    dense
+                />
+            </q-card-section>
+            <q-card-section class="row" v-else>
                 <q-list class="col-xs-12 col-sm-12 col-md-7">
                     <q-item class="row">
                         <q-item-section class="col-sm-6 col-md-5">
@@ -73,8 +95,18 @@
                     </q-item>
                 </q-list>
             </q-card-section>
-            <q-card-actions align="right">
-
+            <q-card-actions v-if="isEdit" align="right">
+                <q-btn
+                    :label="$t('operate.confirm')"
+                    type="submit"
+                    color="positive"
+                />
+                <q-btn
+                    :label="$t('operate.cancel')"
+                    type="reset"
+                    color="grey-7"
+                    @click="cancelEdit"
+                />
             </q-card-actions>
         </q-form>
     </q-card>
@@ -82,6 +114,7 @@
 
 <script>
 import { getUserById, AUTH_TYPE } from "@/api/auth.js";
+import { verifyPhoneNumber } from "@/utils";
 
 const defaultUserData = {
     id: 0,
@@ -124,7 +157,12 @@ export default {
                 this.showData = { ...response.data.result };
                 this.editData = { ...response.data.result };
             })
-        }
+        },
+        cancelEdit() {
+            this.editData = { ...this.showData };
+            this.isEdit = false;
+        },
+        verifyPhoneNumber
     },
     computed: {
 

@@ -4,10 +4,6 @@ import { doRegister, doLogin, getUser, getSelfRouters } from '@/api/auth';
 
 const TOKEN_KEY = 'QuickShelf-Token';
 
-export function register (state, data) {
-    return doRegister(data);
-}
-
 export function login (state, data) {
     return doLogin(data).then((response) => {
         const token = response.data.result.token;

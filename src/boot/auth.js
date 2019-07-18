@@ -32,9 +32,6 @@ export default ({ router, store, Vue }) => {
     })
 
     var helper = {}
-    helper.register = (data) => {
-        return store.dispatch('auth/register', data)
-    }
     helper.loggedIn = () => {
         return store.getters['auth/loggedIn']
     }
