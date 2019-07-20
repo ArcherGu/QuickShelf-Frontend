@@ -35,23 +35,11 @@ export default ({ router, store, Vue }) => {
     helper.loggedIn = () => {
         return store.getters['auth/loggedIn']
     }
-    helper.check = (roles) => {
-        return store.getters['auth/check'](roles)
-    }
     helper.login = (data) => {
         return store.dispatch('auth/login', data)
     }
     helper.logout = () => {
         return store.dispatch('auth/logout')
-    }
-    helper.verify = (token) => {
-        return store.dispatch('auth/verify', token)
-    }
-    helper.passwordForgot = (data) => {
-        return store.dispatch('auth/passwordForgot', data)
-    }
-    helper.passwordRecover = (data) => {
-        return store.dispatch('auth/passwordRecover', data)
     }
     helper.fetch = () => {
         return store.dispatch('auth/fetch')

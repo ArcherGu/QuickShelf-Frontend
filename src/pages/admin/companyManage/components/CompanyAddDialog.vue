@@ -153,7 +153,7 @@
 
 <script>
 import DistPicker from "@/components/DistPicker";
-import { doRegister, checkUsername, AUTH_TYPE } from "@/api/auth.js";
+import { createUser, checkUsername, USER_TYPE } from "@/api/user.js";
 import { addOrEditCompany, checkCompanyName } from "@/api/admin/company.js";
 import { verifyPhoneNumber } from "@/utils";
 
@@ -216,7 +216,7 @@ export default {
     }, 
     methods: {
         addBoss() {
-            doRegister(this.userData, AUTH_TYPE.BOSS).then((response) => {
+            createUser(this.userData, USER_TYPE.BOSS).then((response) => {
                 this.addCompany(response.data.result);
             }).catch((error) => {
                 if (error.response) {

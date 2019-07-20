@@ -1,6 +1,7 @@
 import { axiosInstance } from 'boot/axios';
 import { LocalStorage, SessionStorage } from 'quasar';
-import { doRegister, doLogin, getUser, getSelfRouters } from '@/api/auth';
+import { doLogin, getSelfRouters } from '@/api/auth';
+import { getUser } from '@/api/user';
 
 const TOKEN_KEY = 'QuickShelf-Token';
 
@@ -45,8 +46,4 @@ export function logout (state) {
         SessionStorage.remove(TOKEN_KEY);
     }
     state.commit('setUser', null)
-}
-
-export function passwordRecover (state, { token, data }) {
-    return axiosInstance.post(PASSWORD_RECOVER_ROUTE + '/' + token, data);
 }

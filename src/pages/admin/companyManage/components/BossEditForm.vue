@@ -1,6 +1,6 @@
 <template>
     <q-card>
-        <q-form>
+        <q-form @submit="saveBossData">
             <q-card-section>
                 <q-toolbar>
                     <q-toolbar-title v-text="$t('role.boss') + $t('common.info')">
@@ -113,7 +113,7 @@
 </template>
 
 <script>
-import { getUserById, AUTH_TYPE } from "@/api/auth.js";
+import { getUserById, USER_TYPE } from "@/api/user.js";
 import { verifyPhoneNumber } from "@/utils";
 
 const defaultUserData = {
@@ -153,9 +153,21 @@ export default {
     },
     methods: {
         getBossInfo(bossId) {
-            getUserById(bossId, AUTH_TYPE.BOSS).then((response) => {
+            getUserById(bossId, USER_TYPE.BOSS).then((response) => {
                 this.showData = { ...response.data.result };
                 this.editData = { ...response.data.result };
+            })
+        },
+        saveBossData() {
+            addOrEditCompany(this.editData).then((response) => {
+                this.isEdit = false;
+                this.getCompanyData();
+            }).catch((error) => {
+                if (error.response) {
+                    this.$q.dialog({
+                        message: this.$t(error.response.data.result)
+                    })
+                }
             })
         },
         cancelEdit() {
