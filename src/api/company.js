@@ -1,8 +1,8 @@
 import { axiosInstance } from '@/boot/axios';
 
-export function addOrEditCompany(data) {
+export function saveCompany(data) {
     return axiosInstance({
-        url: '/admin/company/addedit',
+        url: '/company/save',
         method: 'post',
         data: data
     });
@@ -10,7 +10,7 @@ export function addOrEditCompany(data) {
 
 export function checkCompanyName(data) {
     return axiosInstance({
-        url: '/admin/company/check',
+        url: '/company/check',
         method: 'post',
         data: {
             name: data
@@ -20,14 +20,14 @@ export function checkCompanyName(data) {
 
 export function getAllCompanies() {
     return axiosInstance({
-        url: '/admin/company/all',
+        url: '/company/all',
         method: 'get'
     });
 }
 
-export function getCompanyInfo(id) {
+export function getCompanyById(id) {
     return axiosInstance({
-        url: `/admin/company/${id}`,
+        url: `/company/info/${id}`,
         method: 'get'
     });
 }

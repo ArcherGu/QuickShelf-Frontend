@@ -154,7 +154,7 @@
 </template>
 
 <script>
-import { addOrEditRouter } from "@/api/admin/routers.js";
+import { saveRouter } from "@/api/routers.js";
 import { getAllRoles } from "@/api/role.js";
 
 const defaultEditData = {
@@ -218,7 +218,7 @@ export default {
     },
     methods: {
         save() {
-            addOrEditRouter(this.editData).then((response) => {
+            saveRouter(this.editData).then((response) => {
                 this.$refs.addEditDialog.hide();
                 this.editData = { ...defaultEditData };
                 this.$emit('refresh-table');

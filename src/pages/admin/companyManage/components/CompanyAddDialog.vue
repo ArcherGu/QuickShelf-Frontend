@@ -154,7 +154,7 @@
 <script>
 import DistPicker from "@/components/DistPicker";
 import { createUser, checkUsername, USER_TYPE } from "@/api/user.js";
-import { addOrEditCompany, checkCompanyName } from "@/api/admin/company.js";
+import { saveCompany, checkCompanyName } from "@/api/company.js";
 import { verifyPhoneNumber } from "@/utils";
 
 const defaultUserData = {
@@ -229,7 +229,7 @@ export default {
 
         addCompany(bossId) {
             this.companyData.boss_id = bossId;
-            addOrEditCompany(this.companyData).then((response) => {
+            saveCompany(this.companyData).then((response) => {
                 this.userData = { ...defaultUserData };
                 this.companyData = { ...defaultCompanyData };
                 this.companyDist = { ...defaultCompanyDist };

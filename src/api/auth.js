@@ -10,10 +10,3 @@ export function doLogin(data) {
         }
     });
 }
-
-export function getSelfRouters() {
-    return axiosInstance({
-        url: '/auth/routers',
-        method: 'get'
-    });
-}

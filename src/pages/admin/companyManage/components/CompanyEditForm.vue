@@ -119,7 +119,7 @@
 
 <script>
 import DistPicker from "@/components/DistPicker";
-import { getCompanyInfo, addOrEditCompany } from "@/api/admin/company.js";
+import { getCompanyById, saveCompany } from "@/api/company.js";
 import { getDetailsDist } from "@/api/district.js";
 import { verifyPhoneNumber } from "@/utils";
 
@@ -176,7 +176,7 @@ export default {
     },
     methods: {
         getCompanyData() {
-            getCompanyInfo(this.companyId).then((response) => {
+            getCompanyById(this.companyId).then((response) => {
                 this.showData = { ...response.data.result };
                 this.editData = { ...response.data.result, adminFlag: '' };
                 this.companyDist = {
@@ -205,7 +205,7 @@ export default {
         },
 
         saveCompanyData() {
-            addOrEditCompany(this.editData).then((response) => {
+            saveCompany(this.editData).then((response) => {
                 this.isEdit = false;
                 this.getCompanyData();
             }).catch((error) => {

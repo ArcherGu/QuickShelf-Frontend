@@ -1,6 +1,7 @@
 import { axiosInstance } from 'boot/axios';
 import { LocalStorage, SessionStorage } from 'quasar';
-import { doLogin, getSelfRouters } from '@/api/auth';
+import { doLogin } from '@/api/auth';
+import { getSelfRouters } from '@/api/routers';
 import { getUser } from '@/api/user';
 
 const TOKEN_KEY = 'QuickShelf-Token';

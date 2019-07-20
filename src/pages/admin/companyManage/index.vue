@@ -45,7 +45,7 @@
 
 <script>
 import CompanyAddDialog from "./components/CompanyAddDialog.vue";
-import { getAllCompanies } from "@/api/admin/company.js";
+import { getAllCompanies } from "@/api/company.js";
 import { isArray } from "@/utils";
 
 export default {
