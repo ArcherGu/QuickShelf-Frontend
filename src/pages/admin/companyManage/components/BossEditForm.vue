@@ -113,7 +113,8 @@
 </template>
 
 <script>
-import { getUserById, USER_TYPE } from "@/api/user.js";
+import { getUserById } from "@/api/user";
+import { CONST_ROLE_TYPE } from "@/data/const";
 import { verifyPhoneNumber } from "@/utils";
 
 const defaultUserData = {
@@ -153,7 +154,7 @@ export default {
     },
     methods: {
         getBossInfo(bossId) {
-            getUserById(bossId, USER_TYPE.BOSS).then((response) => {
+            getUserById(bossId, CONST_ROLE_TYPE.BOSS).then((response) => {
                 this.showData = { ...response.data.result };
                 this.editData = { ...response.data.result };
             })

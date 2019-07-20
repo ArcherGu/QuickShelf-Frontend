@@ -16,8 +16,8 @@
 </template>
 
 <script>
-import CompanyEditForm from "./components/CompanyEditForm.vue";
-import BossEditForm from "./components/BossEditForm.vue";
+import CompanyEditForm from "./components/CompanyEditForm";
+import BossEditForm from "./components/BossEditForm";
 
 export default {
     name: 'CompanyEdit',

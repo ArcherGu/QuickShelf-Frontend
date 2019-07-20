@@ -1,11 +1,5 @@
 import { axiosInstance } from '@/boot/axios';
 
-export const USER_TYPE = {
-    STAFF: 'staff',
-    MANAGER: 'manager',
-    BOSS: 'boss'
-};
-
 export function checkUsername(data) {
     return axiosInstance({
         url: '/user/check',
@@ -16,6 +10,9 @@ export function checkUsername(data) {
     });
 }
 
+/**
+ * type: @/data/const/role.js => CONST_ROLE_TYPE
+ */
 export function createUser(data, type) {
     return axiosInstance({
         url: `/user/create/${type}`,

@@ -45,8 +45,8 @@
 </template>
 
 <script>
-import RouterEditDialog from "./components/RouterEditDialog.vue";
-import { getAllRouters } from "@/api/routers.js";
+import RouterEditDialog from "./components/RouterEditDialog";
+import { getAllRouters } from "@/api/routers";
 import { isArray } from "@/utils";
 
 export default {

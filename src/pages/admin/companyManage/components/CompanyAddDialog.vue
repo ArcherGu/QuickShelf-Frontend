@@ -153,34 +153,11 @@
 
 <script>
 import DistPicker from "@/components/DistPicker";
-import { createUser, checkUsername, USER_TYPE } from "@/api/user.js";
-import { saveCompany, checkCompanyName } from "@/api/company.js";
+import { createUser, checkUsername } from "@/api/user";
+import { saveCompany, checkCompanyName } from "@/api/company";
 import { verifyPhoneNumber } from "@/utils";
-
-const defaultUserData = {
-    username: '',
-    real_name: '',
-    phone_number: '',
-    password: '',
-    confirmPassword: '',
-};
-
-const defaultCompanyDist = {
-    province: '',
-    city: '',
-    area: '',
-};
-
-const defaultCompanyData = {
-    id: 0,
-    boss_id: 0,
-    name: '',
-    ...defaultCompanyDist,
-    address: '',
-    phone_number: '',
-    max_shop_num: 1,
-    adminFlag: '',
-};
+import { CONST_ROLE_TYPE } from "@/data/const";
+import { DEF_USER_DATA, DEF_DIST_DATA, DEF_COMPANY_DATA } from "@/data/default";
 
 export default {
     name: 'CompanyAddDialog',
@@ -196,9 +173,9 @@ export default {
     data() {
         return {
             myShow: this.show,
-            userData: { ...defaultUserData },
-            companyData: { ...defaultCompanyData },
-            companyDist: { ...defaultCompanyDist },
+            userData: { ...DEF_USER_DATA },
+            companyData: { ...DEF_COMPANY_DATA },
+            companyDist: { ...DEF_DIST_DATA },
             check: {
                 aNameCheck: true, //Username
                 bNameCheck: true, //Company Name
@@ -216,7 +193,7 @@ export default {
     }, 
     methods: {
         addBoss() {
-            createUser(this.userData, USER_TYPE.BOSS).then((response) => {
+            createUser(this.userData, CONST_ROLE_TYPE.BOSS).then((response) => {
                 this.addCompany(response.data.result);
             }).catch((error) => {
                 if (error.response) {
@@ -230,9 +207,9 @@ export default {
         addCompany(bossId) {
             this.companyData.boss_id = bossId;
             saveCompany(this.companyData).then((response) => {
-                this.userData = { ...defaultUserData };
-                this.companyData = { ...defaultCompanyData };
-                this.companyDist = { ...defaultCompanyDist };
+                this.userData = { ...DEF_USER_DATA };
+                this.companyData = { ...DEF_COMPANY_DATA };
+                this.companyDist = { ...DEF_DIST_DATA };
 
                 this.$refs.addDialog.hide();
                 this.$emit('refresh-table');

@@ -154,30 +154,9 @@
 </template>
 
 <script>
-import { saveRouter } from "@/api/routers.js";
-import { getAllRoles } from "@/api/role.js";
-
-const defaultEditData = {
-    id: 0,
-    path: '',
-    name: '',
-    redirect: '',
-    component: '',
-    title: '',
-    icon: '',
-    sort: 0,
-    belongTo: 0,
-    roleNames: ['admin'],
-    isLock: 0,
-    isMenu: 0,
-    isUse: 1,
-};
-
-const defaultSelectRouterOption = {
-    label: 'none',
-    value: 0,
-    roleNames: ['admin']
-};
+import { saveRouter } from "@/api/routers";
+import { getAllRoles } from "@/api/role";
+import { DEF_ROUTE_DATA, DEF_ROUTE_SELECT_OPTION } from "@/data/default";
 
 export default {
     name: 'RouterEditDialog',
@@ -199,7 +178,7 @@ export default {
             myShow: this.show,
             roles: [],
             disableRoles: [],
-            editData: { ...defaultEditData },
+            editData: { ...DEF_ROUTE_DATA },
             details: {
                 title: this.$t('operate.add') + this.$t('admin.router.self'),
                 saveBtn: {
@@ -220,7 +199,7 @@ export default {
         save() {
             saveRouter(this.editData).then((response) => {
                 this.$refs.addEditDialog.hide();
-                this.editData = { ...defaultEditData };
+                this.editData = { ...DEF_ROUTE_DATA };
                 this.$emit('refresh-table');
             }).catch((error) => {
                 console.log(error);
@@ -264,7 +243,7 @@ export default {
     },
     computed: {
         selectRouters() {
-            let selectData = [{ ...defaultSelectRouterOption }];
+            let selectData = [{ ...DEF_ROUTE_SELECT_OPTION }];
             this.allRouters.forEach((it) => {
                 selectData.push({
                     label: `${it.name} (${it.path})`,
@@ -295,7 +274,7 @@ export default {
                 };
             }
             else {
-                this.editData = { ...defaultEditData };
+                this.editData = { ...DEF_ROUTE_DATA };
             }
             this.setLimit();
         },

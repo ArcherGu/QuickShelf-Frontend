@@ -119,29 +119,10 @@
 
 <script>
 import DistPicker from "@/components/DistPicker";
-import { getCompanyById, saveCompany } from "@/api/company.js";
-import { getDetailsDist } from "@/api/district.js";
+import { getCompanyById, saveCompany } from "@/api/company";
+import { getDetailsDist } from "@/api/district";
 import { verifyPhoneNumber } from "@/utils";
-
-const defaultCompanyDist = {
-    province: '',
-    city: '',
-    area: '',
-};
-
-const defaultCompanyData = {
-    id: 0,
-    is_use: 0,
-    name: '',
-    phone_number: '',
-    boss_id: 0,
-    bossName: '',
-    currentShopNum: 0,
-    max_shop_num: 0,
-    ...defaultCompanyDist,
-    address: '',
-    adminFlag: '',
-};
+import { DEF_DIST_DATA, DEF_COMPANY_DATA } from "@/data/default";
 
 export default {
     name: 'CompanyEditForm',
@@ -156,12 +137,11 @@ export default {
     },
     data() {
         return {
-            showData: { ...defaultCompanyData },
-            editData: { ...defaultCompanyData },
-            companyDist: { ...defaultCompanyDist },
-            detailDist: "",
-            isEdit: false,
-            chartValue: 3,
+            showData: { ...DEF_COMPANY_DATA },
+            editData: { ...DEF_COMPANY_DATA },
+            companyDist: { ...DEF_DIST_DATA },
+            detailDist: '',
+            isEdit: false
         }
     },
     model: {

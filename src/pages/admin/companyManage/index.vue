@@ -44,8 +44,8 @@
 </template>
 
 <script>
-import CompanyAddDialog from "./components/CompanyAddDialog.vue";
-import { getAllCompanies } from "@/api/company.js";
+import CompanyAddDialog from "./components/CompanyAddDialog";
+import { getAllCompanies } from "@/api/company";
 import { isArray } from "@/utils";
 
 export default {

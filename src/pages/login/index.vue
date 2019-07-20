@@ -102,14 +102,19 @@ export default {
             this.$auth.login(this.form).then(() => {
                 this.$router.push(this.$router.currentRoute.query.redirect || '/');
             }).catch((error) => {
-                if (error.response) {
+                if (error.response && error.response.data && error.response.data.result) {
                     this.$q.dialog({
                         message: this.$t(error.response.data.result)
-                    })
+                    });
+                }
+                else {
+                    this.$q.notify({
+                        message: this.$t('errors.login_failed_unknown')
+                    });
                 }
             }).finally(() => {
                 this.loading = false;
-            })
+            });
         }
     },
 }

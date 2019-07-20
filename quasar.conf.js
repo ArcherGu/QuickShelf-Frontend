@@ -89,6 +89,11 @@ module.exports = function (ctx) {
                 'LocalStorage',
                 'SessionStorage'
             ],
+            config: {
+                notify: {
+                    position: 'top'
+                }
+            },
 
             // iconSet: 'ionicons-v4'
             lang: 'zh-hans' // Quasar language

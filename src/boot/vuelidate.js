@@ -1,4 +1,4 @@
-import Vuelidate from 'vuelidate'
+import Vuelidate from 'vuelidate';
 
 //this.$v
 export default ({ Vue }) => {
