@@ -74,7 +74,7 @@
                         dense
                     />
                     <q-input
-                        v-model="userData.password"
+                        v-model="password"
                         :label="$t('auth.password')"
                         :rules="[ 
                             val => val && val.length > 0 || $t('errors.input_required', { item: $t('auth.password') }),
@@ -87,10 +87,10 @@
                         dense
                     />
                     <q-input
-                        v-model="userData.confirmPassword"
+                        v-model="confirmPassword"
                         :label="$t('auth.confirm_password')"
                         :rules="[ 
-                            val => val && val === userData.password || $t('errors.diff_pwd')
+                            val => val && val === password || $t('errors.diff_pwd')
                         ]"
                         lazy-rules
                         type="password"
@@ -119,7 +119,7 @@
                     />
                     <hr>
                     <q-input
-                        v-model="companyData.adminFlag"
+                        v-model="adminFlag"
                         :label="$t('role.admin') + $t('common.flag')"
                         :rules="[ 
                             val => val && val.length > 0 || $t('errors.input_required', { item: $t('role.admin') + $t('common.flag') }),
@@ -174,7 +174,10 @@ export default {
         return {
             myShow: this.show,
             userData: { ...DEF_USER_DATA },
+            password: '',
+            confirmPassword: '',
             companyData: { ...DEF_COMPANY_DATA },
+            adminFlag: '',
             companyDist: { ...DEF_DIST_DATA },
             check: {
                 aNameCheck: true, //Username
@@ -193,8 +196,13 @@ export default {
     }, 
     methods: {
         addBoss() {
-            createUser(this.userData, CONST_ROLE_TYPE.BOSS).then((response) => {
-                this.addCompany(response.data.result);
+            createUser({ 
+                ...this.userData, 
+                password: this.password, 
+                confirmPassword: this.confirmPassword 
+            }, CONST_ROLE_TYPE.BOSS).then((response) => {
+                let boosId = response.data.result.id;
+                this.addCompany(boosId);
             }).catch((error) => {
                 if (error.response) {
                     this.$q.dialog({
@@ -206,7 +214,7 @@ export default {
 
         addCompany(bossId) {
             this.companyData.boss_id = bossId;
-            saveCompany(this.companyData).then((response) => {
+            saveCompany({ ...this.companyData, adminFlag: this.adminFlag }).then((response) => {
                 this.userData = { ...DEF_USER_DATA };
                 this.companyData = { ...DEF_COMPANY_DATA };
                 this.companyDist = { ...DEF_DIST_DATA };

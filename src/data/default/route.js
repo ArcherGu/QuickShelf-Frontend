@@ -4,7 +4,7 @@
 
 // default data
 export const DEF_DATA = {
-    id: 0,
+    id: null,
     path: '',
     name: '',
     redirect: '',
@@ -12,11 +12,11 @@ export const DEF_DATA = {
     title: '',
     icon: '',
     sort: 0,
-    belongTo: 0,
+    belong_to: 0,
     roleNames: ['admin'],
-    isLock: 0,
-    isMenu: 0,
-    isUse: 1,
+    is_lock: 0,
+    is_menu: 0,
+    is_use: 1,
 };
 
 // select option

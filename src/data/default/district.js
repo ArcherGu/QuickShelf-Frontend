@@ -3,7 +3,7 @@
  */
 
 export const DEF_DATA = {
-    province: '',
-    city: '',
-    area: '',
+    province: null,
+    city: null,
+    area: null,
 };

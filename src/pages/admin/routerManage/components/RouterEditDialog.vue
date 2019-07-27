@@ -75,7 +75,7 @@
                         :rules="[ val => val && val.length > 0 || $t('errors.select_required', { item: $t('admin.router.roleNames') })]"
                     />
                     <q-select
-                        v-model="editData.belongTo"
+                        v-model="editData.belong_to"
                         emit-value
                         map-options
                         outlined
@@ -100,7 +100,7 @@
                         </div>
                     </div>
                     <q-toggle
-                        v-model="editData.isLock"
+                        v-model="editData.is_lock"
                         checked-icon="lock"
                         unchecked-icon="lock_open"
                         color="green"
@@ -111,7 +111,7 @@
                     />
 
                     <q-toggle
-                        v-model="editData.isMenu"
+                        v-model="editData.is_menu"
                         checked-icon="event_available"
                         unchecked-icon="event_busy"
                         color="primary"
@@ -122,7 +122,7 @@
                     />
 
                     <q-toggle
-                        v-model="editData.isUse"
+                        v-model="editData.is_use"
                         checked-icon="check"
                         unchecked-icon="clear"
                         color="info"
@@ -202,7 +202,11 @@ export default {
                 this.editData = { ...DEF_ROUTE_DATA };
                 this.$emit('refresh-table');
             }).catch((error) => {
-                console.log(error);
+                if (error.response) {
+                    this.$q.dialog({
+                        message: this.$t(error.response.data.result)
+                    });
+                }
             })
         },
 
@@ -215,7 +219,7 @@ export default {
         },
 
         setLimit() {
-            let fatherRouter = this.selectRouters.filter( it => it.value == this.editData.belongTo);
+            let fatherRouter = this.selectRouters.filter( it => it.value == this.editData.belong_to);
             if (fatherRouter && fatherRouter.length > 0) {
                 fatherRouter = fatherRouter[0];
                 if (fatherRouter.label == 'none') {
@@ -229,7 +233,7 @@ export default {
         },
 
         changeDetails() {
-            if (this.editData.id > 0) {
+            if (this.editData.id != null) {
                 this.details.title = this.$t('operate.edit') + this.$t('admin.router.self');
                 this.details.saveBtn.text = this.$t('operate.confirm');
                 this.details.saveBtn.color = 'primary'
@@ -266,11 +270,11 @@ export default {
                     component: newVal.component,
                     icon: newVal.icon,
                     sort: parseInt(newVal.sort),
-                    belongTo: parseInt(newVal.belong_to),
+                    belong_to: parseInt(newVal.belong_to),
                     roleNames: newVal.roleNames.length > 0 ? newVal.roleNames : ['admin'],
-                    isLock: parseInt(newVal.is_lock),
-                    isMenu: parseInt(newVal.is_menu),
-                    isUse: parseInt(newVal.is_use),
+                    is_lock: parseInt(newVal.is_lock),
+                    is_menu: parseInt(newVal.is_menu),
+                    is_use: parseInt(newVal.is_use),
                 };
             }
             else {

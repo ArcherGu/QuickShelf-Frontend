@@ -37,7 +37,7 @@
                 />
                 <hr>
                 <q-input
-                    v-model="editData.adminFlag"
+                    v-model="adminFlag"
                     :label="$t('role.admin') + $t('common.flag')"
                     :rules="[ 
                         val => val && val.length > 0 || $t('errors.input_required', { item: $t('role.admin') + $t('common.flag') }),
@@ -139,6 +139,7 @@ export default {
         return {
             showData: { ...DEF_COMPANY_DATA },
             editData: { ...DEF_COMPANY_DATA },
+            adminFlag: '',
             companyDist: { ...DEF_DIST_DATA },
             detailDist: '',
             isEdit: false
@@ -158,7 +159,7 @@ export default {
         getCompanyData() {
             getCompanyById(this.companyId).then((response) => {
                 this.showData = { ...response.data.result };
-                this.editData = { ...response.data.result, adminFlag: '' };
+                this.editData = { ...response.data.result };
                 this.companyDist = {
                     province: this.editData.province,
                     city: this.editData.city,
@@ -185,9 +186,10 @@ export default {
         },
 
         saveCompanyData() {
-            saveCompany(this.editData).then((response) => {
+            saveCompany({ ...this.editData, adminFlag: this.adminFlag }).then((response) => {
                 this.isEdit = false;
-                this.getCompanyData();
+                this.showData = { ...response.data.result };
+                this.editData = { ...response.data.result };
             }).catch((error) => {
                 if (error.response) {
                     this.$q.dialog({

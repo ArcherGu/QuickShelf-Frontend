@@ -113,33 +113,24 @@
 </template>
 
 <script>
-import { getUserById } from "@/api/user";
+import { getUserById, updateUserById } from "@/api/user";
+import PwdResetDialog from "@/components/PwdResetDialog";
 import { CONST_ROLE_TYPE } from "@/data/const";
+import { DEF_USER_DATA } from "@/data/default";
 import { verifyPhoneNumber } from "@/utils";
-
-const defaultUserData = {
-    id: 0,
-    username: "",
-    real_name: "",
-    phone_number: "",
-    created_at: "",
-    email: "",
-    is_use: 0,
-    roleNames: [],
-    shop_id: 0,
-    updated_at: "",
-};
 
 export default {
     name: 'BossEditForm',
-    components: {},
+    components: {
+        PwdResetDialog
+    },
     props: {
 
     },
     data() { 
         return {
-            showData: { ...defaultUserData },
-            editData: { ...defaultUserData },
+            showData: { ...DEF_USER_DATA },
+            editData: { ...DEF_USER_DATA },
             isEdit: false
         }
     },
@@ -160,14 +151,16 @@ export default {
             })
         },
         saveBossData() {
-            addOrEditCompany(this.editData).then((response) => {
+            let bossId = this.editData.id;
+            updateUserById(bossId, this.editData, CONST_ROLE_TYPE.BOSS).then((response) => {
                 this.isEdit = false;
-                this.getCompanyData();
+                this.showData = { ...response.data.result };
+                this.editData = { ...response.data.result };
             }).catch((error) => {
                 if (error.response) {
                     this.$q.dialog({
                         message: this.$t(error.response.data.result)
-                    })
+                    });
                 }
             })
         },
