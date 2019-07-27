@@ -1,7 +1,7 @@
 <template>
     <q-dialog
         v-model="myShow"
-        ref="resetDialog"
+        @before-hide="resetData"
     >
 
         <q-card style="width: 500px; max-width: 80vw;">
@@ -16,7 +16,7 @@
 
                 <q-card-section>
                     <q-input
-                        v-model="userData.password"
+                        v-model="password"
                         :label="$t('auth.password')"
                         :rules="[ 
                             val => val && val.length > 0 || $t('errors.input_required', { item: $t('auth.password') }),
@@ -29,16 +29,31 @@
                         dense
                     />
                     <q-input
-                        v-model="userData.confirmPassword"
+                        v-model="confirmPassword"
                         :label="$t('auth.confirm_password')"
                         :rules="[ 
-                            val => val && val === userData.password || $t('errors.diff_pwd')
+                            val => val && val === password || $t('errors.diff_pwd')
                         ]"
                         lazy-rules
                         type="password"
                         outlined
                         dense
                     />
+                    <div v-if="isAdmin">
+                        <hr>
+                        <q-input
+                            v-model="adminFlag"
+                            :label="$t('role.admin') + $t('common.flag')"
+                            :rules="[ 
+                                val => val && val.length > 0 || $t('errors.input_required', { item: $t('role.admin') + $t('common.flag') }),
+                            ]"
+                            class="q-mt-md"
+                            bg-color="red-2"
+                            lazy-rules
+                            outlined
+                            dense
+                        />
+                    </div>
                 </q-card-section>
 
                 <q-card-actions align="right">
@@ -61,6 +76,9 @@
 </template>
 
 <script>
+import { resetUserPwdById, resetUserPwd } from '@/api/user';
+import { CONST_ROLE } from "@/data/const";
+
 export default {
     name: '',
     components: {},
@@ -69,20 +87,84 @@ export default {
             type: Boolean,
             default: false
         },
-    },
-    data() { return {} },
-    mounted() {},
-    methods: {
-        resetPwd() {
-
+        isSelf: {
+            type: Boolean,
+            default: false
+        },
+        userId: {
+            type: Number,
+            default: 0
+        },
+        role: {
+            type: String,
+            default: ''
         }
     },
-    computed: {
+    data() { 
+        return {
+            myShow: this.show,
+            password: '',
+            confirmPassword: '',
+            isAdmin: false,
+            adminFlag: ''
+        }
+    },
+    model: {
+        prop: 'show',
+        event: 'show-dialog'
+    },
+    mounted() {
+        if (!this.isSelf && (this.userId === 0 || !this.role)) {
+            console.error(new Error('You need to add "user-id" and "role" props to this component if you use "is-self=false"!'));
+        }
+
+        if (this.role == CONST_ROLE.BOSS) {
+            this.isAdmin = true;
+        }
+    },
+    methods: {
+        resetPwd() {
+            if (this.isSelf) {
+                let user = this.$store.getters['auth/user'];
+                resetUserPwd({ id: user.id, password: this.password }).then((response) => {
+                    this.password = this.confirmPassword = '';
+                    this.myShow = false;
+                }).catch((error) => {
+                    if (error.response) {
+                        this.$q.dialog({
+                            message: this.$t(error.response.data.result)
+                        });
+                    }
+                })
+            }
+            else {
+                resetUserPwdById(
+                    this.userId,
+                    { id: this.userId, password: this.password, adminFlag: this.adminFlag },
+                    this.role
+                ).then((response) => {
+                    this.password = this.confirmPassword = '';
+                    this.myShow = false;
+                }).catch((error) => {
+                    if (error.response) {
+                        this.$q.dialog({
+                            message: this.$t(error.response.data.result)
+                        });
+                    }
+                })
+            }
+        },
+
+        resetData() {
+            this.password = this.confirmPassword = this.adminFlag = '';
+        }
+    },
+    watch: {
         show(newVal) {
             this.myShow = newVal;
         },
         myShow(newVal) {
-            this.$emit('show-dialog', newVal)
+            this.$emit('show-dialog', newVal);
         }
     },
 }

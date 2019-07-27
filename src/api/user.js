@@ -1,5 +1,9 @@
 import { axiosInstance } from '@/boot/axios';
 
+/**
+ * role: @/data/const/role.js => CONST_ROLE_TYPE
+ */
+
 export function checkUsername(data) {
     return axiosInstance({
         url: '/user/check',
@@ -17,27 +21,49 @@ export function getUser(data) {
     });
 }
 
-export function getUserById(id, type) {
+export function getUserById(id, role) {
     return axiosInstance({
-        url: `/user/info/${type}/${id}`,
+        url: `/user/info/${role}/${id}`,
         method: 'get'
     });
 }
 
-/**
- * type: @/data/const/role.js => CONST_ROLE_TYPE
- */
-export function createUser(data, type) {
+
+export function createUser(data, role) {
     return axiosInstance({
-        url: `/user/create/${type}`,
+        url: `/user/create/${role}`,
         method: 'post',
         data: data
     });
 }
 
-export function updateUserById(id, data, type) {
+export function updateUser(data) {
     return axiosInstance({
-        url: `/user/update/${type}/${id}`,
+        url: `/user/update/self`,
+        method: 'post',
+        data: data
+    });
+}
+
+export function updateUserById(id, data, role) {
+    return axiosInstance({
+        url: `/user/update/${role}/${id}`,
+        method: 'post',
+        data: data
+    });
+}
+
+export function resetUserPwd(data) {
+    return axiosInstance({
+        url: `/user/password/self`,
+        method: 'post',
+        data: data
+    });
+}
+
+export function resetUserPwdById(id, data, role) {
+    return axiosInstance({
+        url: `/user/password/${role}/${id}`,
         method: 'post',
         data: data
     });

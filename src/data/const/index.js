@@ -1,3 +1,3 @@
 export { 
-    CONST_TYPE as CONST_ROLE_TYPE 
+    CONST_ROLE
 } from "./role";

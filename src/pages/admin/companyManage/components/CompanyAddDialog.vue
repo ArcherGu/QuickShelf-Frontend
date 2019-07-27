@@ -156,7 +156,7 @@ import DistPicker from "@/components/DistPicker";
 import { createUser, checkUsername } from "@/api/user";
 import { saveCompany, checkCompanyName } from "@/api/company";
 import { verifyPhoneNumber } from "@/utils";
-import { CONST_ROLE_TYPE } from "@/data/const";
+import { CONST_ROLE } from "@/data/const";
 import { DEF_USER_DATA, DEF_DIST_DATA, DEF_COMPANY_DATA } from "@/data/default";
 
 export default {
@@ -200,7 +200,7 @@ export default {
                 ...this.userData, 
                 password: this.password, 
                 confirmPassword: this.confirmPassword 
-            }, CONST_ROLE_TYPE.BOSS).then((response) => {
+            }, CONST_ROLE.BOSS).then((response) => {
                 let boosId = response.data.result.id;
                 this.addCompany(boosId);
             }).catch((error) => {
