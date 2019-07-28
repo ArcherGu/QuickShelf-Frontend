@@ -160,38 +160,15 @@ export default {
     methods: {
         getCompanyData() {
             getCompanyById(this.companyId).then((response) => {
-                this.showData = { ...response.data.result };
-                this.editData = { ...response.data.result };
-                this.companyDist = {
-                    province: this.editData.province,
-                    city: this.editData.city,
-                    area: this.editData.area,
-                };
-                this.$bus.$emit('get-boss-id-from-company', this.editData.boss_id);
-                this.getDistrict();
-            })
-        },
-
-        getDistrict() {
-            let data = {
-                province: this.showData.province,
-                city: this.showData.city,
-                area: this.showData.area
-            };
-            getDetailsDist(data).then((response) => {
-                if (response.data.result) {
-                    this.detailDist = response.data.result.province;
-                    this.detailDist += response.data.result.city? ` ${response.data.result.city}` : "";
-                    this.detailDist += response.data.result.area? ` ${response.data.result.area}` : "";
-                }
+                this.formatCompanyData(response.data.result);
+                this.$bus.$emit('get-boss-id-from-company', response.data.result.boss_id);
             })
         },
 
         saveCompanyData() {
             saveCompany({ ...this.editData, adminFlag: this.adminFlag }).then((response) => {
                 this.isEdit = false;
-                this.showData = { ...response.data.result };
-                this.editData = { ...response.data.result };
+                this.formatCompanyData(response.data.result);
             }).catch((error) => {
                 if (error.response) {
                     this.$q.dialog({
@@ -199,6 +176,20 @@ export default {
                     })
                 }
             })
+        },
+
+        formatCompanyData(result) {
+            this.showData = { ...result };
+            this.editData = { ...result };
+            this.companyDist = {
+                province: result.province,
+                city: result.city,
+                area: result.area,
+            };
+
+            this.detailDist = result.provinceName;
+            this.detailDist += result.cityName ? ` ${result.cityName}` : "";
+            this.detailDist += result.areaName? ` ${result.areaName}` : "";
         },
 
         cancelEdit() {

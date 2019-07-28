@@ -154,7 +154,7 @@
 <script>
 import DistPicker from "@/components/DistPicker";
 import { createUser, checkUsername } from "@/api/user";
-import { saveCompany, checkCompanyName } from "@/api/company";
+import { saveCompany, checkCompanyName, linkCompanyAndBoss } from "@/api/company";
 import { verifyPhoneNumber } from "@/utils";
 import { CONST_ROLE } from "@/data/const";
 import { DEF_USER_DATA, DEF_DIST_DATA, DEF_COMPANY_DATA } from "@/data/default";
@@ -174,11 +174,11 @@ export default {
         return {
             myShow: this.show,
             userData: { ...DEF_USER_DATA },
+            companyData: { ...DEF_COMPANY_DATA },
+            companyDist: { ...DEF_DIST_DATA },
             password: '',
             confirmPassword: '',
-            companyData: { ...DEF_COMPANY_DATA },
             adminFlag: '',
-            companyDist: { ...DEF_DIST_DATA },
             check: {
                 aNameCheck: true, //Username
                 bNameCheck: true, //Company Name
@@ -197,9 +197,10 @@ export default {
     methods: {
         addBoss() {
             createUser({ 
-                ...this.userData, 
-                password: this.password, 
-                confirmPassword: this.confirmPassword 
+                ...this.userData,
+                password: this.password,
+                confirmPassword: this.confirmPassword,
+                adminFlag: this.adminFlag
             }, CONST_ROLE.BOSS).then((response) => {
                 let boosId = response.data.result.id;
                 this.addCompany(boosId);
@@ -215,9 +216,23 @@ export default {
         addCompany(bossId) {
             this.companyData.boss_id = bossId;
             saveCompany({ ...this.companyData, adminFlag: this.adminFlag }).then((response) => {
+                let companyId = response.data.result.id;
+                this.addRelationship({boss_id: bossId, company_id: companyId});
+            }).catch((error) => {
+                if (error.response) {
+                    this.$q.dialog({
+                        message: this.$t(error.response.data.result)
+                    })
+                }
+            })
+        },
+
+        addRelationship(data) {
+            linkCompanyAndBoss({ ...data, adminFlag: this.adminFlag }).then((response) => {
                 this.userData = { ...DEF_USER_DATA };
                 this.companyData = { ...DEF_COMPANY_DATA };
                 this.companyDist = { ...DEF_DIST_DATA };
+                this.adminFlag = this.password = this.confirmPassword = '';
 
                 this.$refs.addDialog.hide();
                 this.$emit('refresh-table');

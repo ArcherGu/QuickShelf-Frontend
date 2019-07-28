@@ -12,5 +12,6 @@ export const DEF_DATA = {
     is_use: 0,
     roleNames: [],
     shop_id: null,
+    company_id: null,
     updated_at: ''
 };

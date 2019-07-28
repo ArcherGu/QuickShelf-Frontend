@@ -31,3 +31,11 @@ export function getCompanyById(id) {
         method: 'get'
     });
 }
+
+export function linkCompanyAndBoss(data) {
+    return axiosInstance({
+        url: '/company/link',
+        method: 'post',
+        data: data
+    });
+}
