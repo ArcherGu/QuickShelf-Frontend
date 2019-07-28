@@ -30,7 +30,9 @@ export default {
     state: {
         self: '状态',
         success: '成功',
+        op_success: '{operate}成功',
         fail: '失败',
+        op_fail: '{operate}失败',
         enable: '正常',
         disable: '禁用'
     },
@@ -66,11 +68,13 @@ export default {
     },
 
     router: {
+        index: '首页',
         index_home: '首页',
         admin: '系统管理',
         admin_home: '控制台',
         router_manage: '路由管理',
-        company_manage: '公司管理'
+        company_manage: '公司管理',
+        company_edit: '公司编辑'
     },
 
     //Admin 管理员类
@@ -90,6 +94,7 @@ export default {
             isMenu: '菜单路由',
             isUse: '使用状态',
             root: '根路由',
+            child: '子路由'
         }
     },
 

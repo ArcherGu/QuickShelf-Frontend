@@ -171,7 +171,7 @@ export default {
 
     },
     beforeDestroy() {
-        this.$bus.$off('get-boss-id-from-company', this.getBossInfo);
+        this.$bus.$off('get-boss-id-from-company');
     },
     methods: {
         getBossInfo(bossId) {

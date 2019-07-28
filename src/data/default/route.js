@@ -16,7 +16,7 @@ export const DEF_DATA = {
     roleNames: ['admin'],
     is_lock: 0,
     is_menu: 0,
-    is_use: 1,
+    is_use: 0,
 };
 
 // select option

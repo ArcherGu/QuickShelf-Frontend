@@ -11,3 +11,7 @@ export function isArray(variable) {
     }
     return false;
 }
+
+export function deepCopy(variable) {
+    return JSON.parse(JSON.stringify(variable));
+}

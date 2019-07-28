@@ -63,6 +63,7 @@ module.exports = function (ctx) {
                 'QSelect',
                 'QSlider',
                 //Table
+                'QMarkupTable',
                 'QTable',
                 'QTh',
                 'QTr',
@@ -74,7 +75,9 @@ module.exports = function (ctx) {
                 'QImg',
                 'QDialog',
                 'QExpansionItem',
-                'QCircularProgress'
+                'QCircularProgress',
+                'QTree',
+                'QSplitter'
             ],
 
             directives: [
@@ -91,7 +94,9 @@ module.exports = function (ctx) {
             ],
             config: {
                 notify: {
-                    position: 'top'
+                    position: 'top',
+                    timeout: 2000,
+                    color: 'green-13'
                 }
             },
 

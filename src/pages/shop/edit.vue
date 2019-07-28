@@ -1,7 +1,5 @@
 <template>
-    <div>
-        Shop List
-    </div>
+    <div>Shop Edit</div>
 </template>
 
 <script>

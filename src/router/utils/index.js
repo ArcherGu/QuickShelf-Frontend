@@ -1,4 +1,5 @@
 const _import = require('./_import_' + process.env.NODE_ENV);
+import { deepCopy } from "@/utils";
 
 /**
  * 
@@ -20,7 +21,7 @@ export function filterAsyncRouter(asyncRouterMap) {
 }
 
 export default ({ store, router }) => {
-    let rawData = JSON.parse(JSON.stringify(store.getters['auth/myRouters']));
+    let rawData = deepCopy(store.getters['auth/myRouters']);
     let routersData = filterAsyncRouter(rawData);
     router.addRoutes(routersData);
     router.options.routes = store.getters['auth/myRouters'];

@@ -14,6 +14,13 @@ export function getAllRouters() {
     });
 }
 
+export function getAllRoutersTree() {
+    return axiosInstance({
+        url: '/router/alltree',
+        method: 'get'
+    });
+}
+
 export function saveRouter(data) {
     return axiosInstance({
         url: '/router/save',
