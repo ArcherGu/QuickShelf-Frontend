@@ -21,7 +21,7 @@
     "@quasar/app": "1.0.0-rc.6",
     "@vue/eslint-config-standard": "4.0.0",
     "babel-eslint": "10.0.1",
-    "eslint": "5.16.0",
+    "eslint": "8.23.0",
     "eslint-loader": "2.1.2",
     "eslint-plugin-vue": "5.2.3"
   },
