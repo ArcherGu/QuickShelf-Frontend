@@ -18,7 +18,7 @@
     "vuelidate": "0.7.7"
   },
   "devDependencies": {
-    "@quasar/app": "1.9.6",
+    "@quasar/app": "2.4.1",
     "@vue/eslint-config-standard": "8.0.1",
     "babel-eslint": "10.0.1",
     "eslint": "8.23.0",
